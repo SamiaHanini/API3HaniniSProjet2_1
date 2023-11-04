@@ -20,17 +20,12 @@ class TaxiServiceImplTest {
     @Autowired
     private InterfTaxiService taxiServiceImpl;
 
-    Taxi taxi;
+    private Taxi taxi;
 
     @BeforeEach
     void setUp() {
         try {
-            taxi = new Taxi();
-            taxi.setImmatriculation("T-000-EST");
-            taxi.setCarburant("Essence");
-            taxi.setPrixKm(1.5);
-            taxi.setLocations(new ArrayList<>());
-
+            Taxi taxi = new Taxi(null,"T-000-EST", "Essence", 1.5, new ArrayList<>());
             taxiServiceImpl.create(taxi);
             System.out.println("Création du taxi réussie : " + taxi);
 
@@ -43,6 +38,8 @@ class TaxiServiceImplTest {
     void tearDown() {
         try {
             taxiServiceImpl.delete(taxi);
+             System.out.println("Suppression du taxi réussie : " + taxi);
+
         } catch (Exception e) {
             System.out.println("Erreur d'effacement du taxi : " + taxi + ". Erreur : " + e);
         }

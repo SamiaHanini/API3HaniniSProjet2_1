@@ -17,14 +17,19 @@ import lombok.*;
 @Table(name = "APILOCATION", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
 public class Location {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_generator")
-    @SequenceGenerator(name = "location_generator", sequenceName = "API_LOCATION_SEQ", allocationSize = 1)
-
-        private Integer id, kmtotal;
+        @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_generator")
+        @SequenceGenerator(name = "location_generator", sequenceName = "APILOCATION_SEQ", allocationSize = 1)
+        @Column(name = "ID")
+        private Integer id;
+        @NonNull
+        private Integer kmtotal;
+        @NonNull
         private LocalDate dateLoc;
+        @NonNull
         private Double acompte;
 
+        @NonNull
         @Formula("(SELECT l.kmtotal * t.prixKm FROM APITAXI t WHERE t.id = ID_3)")
         private Double total;
 
@@ -43,7 +48,6 @@ public class Location {
         @NonNull
         @ManyToOne @JoinColumn(name = "ID_2")
         private Adresse adresseFin;
-
 
         @NonNull
         @ManyToOne @JoinColumn(name = "ID_3")

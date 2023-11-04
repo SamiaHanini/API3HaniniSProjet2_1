@@ -1,7 +1,5 @@
 package be.condorcet.api3haninisprojet2_1.services.location;
 
-import org.junit.jupiter.api.AfterEach;
-
 import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Adresse;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
@@ -10,6 +8,7 @@ import be.condorcet.api3haninisprojet2_1.services.client.ClientServiceImpl;
 import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
 import be.condorcet.api3haninisprojet2_1.entities.Client;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class LocationServiceImplTest {
     private Taxi taxi;
     private Adresse adDebut;
     private Adresse adFin;
-    private Double total;
+    //private Double total;
 
     @BeforeEach
     void setUp() {
@@ -61,12 +60,12 @@ class LocationServiceImplTest {
             taxi = new Taxi(null, "T-000-EST", "ESSENCE", 10.0, new ArrayList<>());
             TaxiService.create(taxi);
 
-            client = new Client(null, "clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
+            client = new Client("clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
             ClientService.create(client);
 
-            total = taxi.getPrixKm()*location.getKmtotal();
+            //total = taxi.getPrixKm()*location.getKmtotal();
 
-            location = new Location(null, 300, LocalDate.now(), 25.0, total, adDebut, adFin, taxi, client);
+            location = new Location(null, 300, LocalDate.now(), 25.0, null, adDebut, adFin, taxi, client);
             LocationService.create(location);
 
             System.out.println("création de la location : " + location);
@@ -94,7 +93,14 @@ class LocationServiceImplTest {
     void create() {
         assertNotEquals(0, location.getId(), "id Location non incrémenté");
         assertEquals(LocalDate.now(), location.getDateLoc(), "date Location non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
+        assertNotEquals(0,location.getKmtotal(), "km total non enregistré");
+        assertNotEquals(0,location.getTotal(), "total non enregistré");
+        assertNotEquals(null,location.getTaxi(), "location taxi non enregistrée");
+        assertNotEquals(null,location.getClient(), "location client non enregistrée");
+        assertNotEquals(null,location.getAdresseDebut(), "location adresse départ non enregistrée");
+        assertNotEquals(null,location.getAdresseFin(), "location adresse arrivé non enregistrée");  
     }
+
 
      @Test
     void read() {
@@ -108,18 +114,17 @@ class LocationServiceImplTest {
         }
     }
 
+
+
     @Test
     void update() {
-        try {
-            location.setDateLoc(LocalDate.now().plusDays(1));
-
+        try{
+            location.setKmtotal(30);
             location = LocationService.update(location);
-
-            LocalDate nowPlusOne = LocalDate.now().plusDays(1);
-
-            assertEquals(nowPlusOne, location.getDateLoc(), "date Location différent : " + location.getDateLoc() + " au lieu de " + nowPlusOne);
-        } catch (Exception e) {
-            fail("erreur de mise à jour " + e);
+            location = LocationService.read(location.getId());
+            assertEquals(30,location.getKmtotal(), "pas de différence dans le km total");
+        }catch (Exception e){
+            fail("erreur de mise à jour : " + e);
         }
     }
 
@@ -151,8 +156,11 @@ class LocationServiceImplTest {
     @Test
     void readByDates() {
         try {
-            LocalDate start = LocalDate.now();
-            LocalDate end = start.plusDays(1);
+
+            //TODO
+            //Modifier dates en fct BD
+            LocalDate start = LocalDate.of(2023, 1, 15);
+            LocalDate end = LocalDate.of(2023, 2, 10);
 
             List<Location> locations = LocationService.getLocationsByDates(start, end);
 

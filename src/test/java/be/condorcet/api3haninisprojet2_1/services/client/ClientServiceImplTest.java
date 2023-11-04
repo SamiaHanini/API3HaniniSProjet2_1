@@ -21,7 +21,7 @@ class ClientServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            client = new Client(null, "testmail@test.com", "TestNom", "TestPrenom", "123");
+           client = new Client("testmail@test.com", "TestNom", "TestPrenom", "123");
             clientService.create(client);
             System.out.println("Création du client : " + client);
         } catch (Exception e) {

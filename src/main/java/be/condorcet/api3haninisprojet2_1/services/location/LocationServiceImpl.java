@@ -2,6 +2,7 @@ package be.condorcet.api3haninisprojet2_1.services.location;
 
 import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
+import be.condorcet.api3haninisprojet2_1.entities.Client;
 import be.condorcet.api3haninisprojet2_1.repositories.LocationRepository;
 
 import jakarta.transaction.Transactional;
@@ -55,6 +56,11 @@ public class LocationServiceImpl implements InterfLocationService{
     @Override
     public List<Location> getLocationsByDates(LocalDate now, LocalDate localDate) throws Exception{
         return locationRepository.findLocationByDates(now, localDate);
+    }
+
+    @Override
+    public List<Location> getLocationsByClient(Client client) {
+        return locationRepository.findLocationsByClient(client);
     }
 
     // @Override
