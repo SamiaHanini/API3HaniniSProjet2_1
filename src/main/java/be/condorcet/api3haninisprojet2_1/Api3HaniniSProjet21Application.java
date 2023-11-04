@@ -1,4 +1,4 @@
-package com.example.api3haninisprojet2_1;
+package be.condorcet.api3haninisprojet2_1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

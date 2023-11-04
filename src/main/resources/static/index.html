@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+</head>
+<body>
+<h1> Bienvenue dans le projet 2_1 </h1>
+<h2>TAXIS</h2>
+<p><a href="taxis/tous">Voir tous les taxis</a></p>
+<p><form action="taxis/create" method="get">
+    Immatriculation : <input type="text" name="immatriculation"> <br>
+    Carburant : <input type="text" name="carburant"> <br>
+    Prix au km : <input type="number" name="prixKm"> <br>
+    <input type="submit" name="ok" value="ok">
+</form>
+</p>
+<p><form action="taxis/selection" method="get">
+    Id taxi : <input type="text" name="id"> <br>
+    <input type="submit" name="ok" value="ok">
+</form>
+</p>
+<h2>LOCATION</h2>
+<p><a href="locations/tous">Voir toutes les locations</a></p>
+
+<p><form action="locations/create" method="get">
+    Date : <input type="date" name="dateloc"> <br>
+    Kilomètres total : <input type="number" name="kmtotal"> <br>
+    Acompte : <input type="number" name="acompte"> <br>
+    <input type="submit" name="ok" value="ok">
+</form>
+</p>
+<p><form action="locations/selection" method="get">
+    Id location : <input type="text" name="id"> <br>
+    <input type="submit" name="ok" value="ok">
+</form>
+</body>
+</html>

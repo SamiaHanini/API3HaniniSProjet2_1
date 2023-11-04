@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taxis</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table border="1">
+    <th>Immatriculation</th>
+    <th>Carburant</th>
+    <th>Prix au Km</th>
+    <tr th:each="unTaxi : ${mesTaxis}">
+        <td th:text="${unTaxi.immatriculation}"></td>
+        <td th:text="${unTaxi.carburant}"></td>
+        <td th:text="${unTaxi.prixKm}"></td>
+        <td><a th:href="@{'/taxis/selection?id=' + ${unTaxi.id}}">Sélection</a></td>
+    </tr>
+</table>
+</body>
+</html>
