@@ -157,8 +157,6 @@ class LocationServiceImplTest {
     void readByDates() {
         try {
 
-            //TODO
-            //Modifier dates en fct BD
             LocalDate start = LocalDate.of(2023, 1, 15);
             LocalDate end = LocalDate.of(2023, 2, 10);
 
