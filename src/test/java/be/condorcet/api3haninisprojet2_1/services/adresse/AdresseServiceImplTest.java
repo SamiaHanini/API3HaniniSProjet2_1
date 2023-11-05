@@ -26,7 +26,7 @@ class AdresseServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            adresse = new Adresse(null, 8000, "Bruxelles", "Avenue de la Liberté", "12A");
+            adresse = new Adresse(null, 1200, "Baudour", "Rue des parapluies", "5");
             adresseServiceImpl.create(adresse);
 
             System.out.println("Création de l'adresse : " + adresse);
@@ -49,10 +49,10 @@ class AdresseServiceImplTest {
     @Test
     void create() {
         assertNotEquals(0, adresse.getId(), "L'ID de l'adresse n'a pas été incrémenté");
-        assertEquals(7390, adresse.getCp(), "Le code postal enregistré est incorrect : " + adresse.getCp() + " au lieu de 7000");
-        assertEquals("Quaregnon", adresse.getLocalite(), "La ville enregistrée est incorrecte : " + adresse.getLocalite() + " au lieu de Mons");
-        assertEquals("Rue des pommes", adresse.getRue(), "La rue enregistrée est incorrecte : " + adresse.getRue() + " au lieu de Rue de la chaussée");
-        assertEquals("23", adresse.getNum(), "Le numéro enregistré est incorrect : " + adresse.getNum() + " au lieu de 1");
+        assertEquals(1200, adresse.getCp(), "Le code postal enregistré est incorrect : " + adresse.getCp() + " au lieu de 8000");
+        assertEquals("Baudour", adresse.getLocalite(), "La ville enregistrée est incorrecte : " + adresse.getLocalite() + " au lieu de Mons");
+        assertEquals("Rue des parapluies", adresse.getRue(), "La rue enregistrée est incorrecte : " + adresse.getRue() + " au lieu de Rue de la chaussée");
+        assertEquals("5", adresse.getNum(), "Le numéro enregistré est incorrect : " + adresse.getNum() + " au lieu de 1");
     }
     
 
@@ -110,7 +110,6 @@ class AdresseServiceImplTest {
             adresse.setRue("Rue de la Loi");
             adresse.setNum("1");
             adresse = adresseServiceImpl.update(adresse);
-
             assertEquals(1000, adresse.getCp(), "Code postal différent " + adresse.getCp() + " au lieu de 1000");
             assertEquals("Bruxelles-Ville", adresse.getLocalite(), "Localité différente " + adresse.getLocalite() + " au lieu de Bruxelles-Ville");
             assertEquals("Rue de la Loi", adresse.getRue(), "Rue différente " + adresse.getRue() + " au lieu de Rue de la Loi");

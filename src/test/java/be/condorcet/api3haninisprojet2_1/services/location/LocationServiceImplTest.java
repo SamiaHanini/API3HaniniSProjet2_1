@@ -93,12 +93,14 @@ class LocationServiceImplTest {
     void create() {
         assertNotEquals(0, location.getId(), "id Location non incrémenté");
         assertEquals(LocalDate.now(), location.getDateLoc(), "date Location non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
-        assertNotEquals(0,location.getKmtotal(), "km total non enregistré");
+        assertNotEquals(300,location.getKmtotal(), "km total non enregistré");
+        assertNotEquals(25,location.getAcompte(), "acompte non enregistré");
         assertNotEquals(0,location.getTotal(), "total non enregistré");
-        assertNotEquals(null,location.getTaxi(), "location taxi non enregistrée");
-        assertNotEquals(null,location.getClient(), "location client non enregistrée");
-        assertNotEquals(null,location.getAdresseDebut(), "location adresse départ non enregistrée");
-        assertNotEquals(null,location.getAdresseFin(), "location adresse arrivé non enregistrée");  
+        assertNotEquals(adDebut.getId(),location.getAdresseDebut().getId(), "location adresse départ non enregistrée");
+        assertNotEquals(adFin.getId(),location.getAdresseFin().getId(), "location adresse arrivé non enregistrée");
+        assertNotEquals(taxi.getId(),location.getTaxi().getId(), "location taxi non enregistrée");
+        assertNotEquals(client.getId(),location.getClient().getId(), "location client non enregistrée");
+
     }
 
 
@@ -157,10 +159,8 @@ class LocationServiceImplTest {
     void readByDates() {
         try {
 
-            //TODO
-            //Modifier dates en fct BD
-            LocalDate start = LocalDate.of(2023, 1, 15);
-            LocalDate end = LocalDate.of(2023, 2, 10);
+            LocalDate start = LocalDate.of(2023, 1, 12);
+            LocalDate end = LocalDate.of(2023, 2, 19);
 
             List<Location> locations = LocationService.getLocationsByDates(start, end);
 
