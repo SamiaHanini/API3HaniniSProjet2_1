@@ -18,12 +18,16 @@ public class Adresse {
     @Column(name = "ID")
     private Integer id;
     @NonNull
+    @Column(name = "CP")
     private Integer cp;
     @NonNull
+    @Column(name = "LOCALITE")
     private String localite;
     @NonNull
+    @Column(name = "RUE")
     private String rue;
     @NonNull
+    @Column(name = "NUM")
     private String num;
 
 }

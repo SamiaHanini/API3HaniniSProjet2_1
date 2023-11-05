@@ -25,12 +25,14 @@ public class Taxi {
     @Column(name = "ID")
     private Integer id;
     @NonNull
+    @Column(name = "IMMATRICULATION")
     private String immatriculation;
     @NonNull
+    @Column(name = "CARBURANT")
     private String carburant;
     @NonNull
+    @Column(name = "PRIXKM")
     private Double prixKm;
-
     @JsonIgnore
     @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY,cascade=CascadeType.ALL, orphanRemoval=true)
     @ToString.Exclude

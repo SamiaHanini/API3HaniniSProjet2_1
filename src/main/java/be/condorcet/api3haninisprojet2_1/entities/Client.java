@@ -22,12 +22,16 @@ public class Client {
     @Column(name = "ID")
     private Integer id;
     @NonNull
+    @Column(name = "MAIL")
     private String mail;
     @NonNull
+    @Column(name = "NOM")
     private String nom;
     @NonNull
+    @Column(name = "PRENOM")
     private String  prenom;
     @NonNull
+    @Column(name = "TEL")
     private String tel;
     @JsonIgnore
     @OneToMany(mappedBy = "client")

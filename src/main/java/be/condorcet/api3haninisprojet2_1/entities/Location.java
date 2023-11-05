@@ -23,23 +23,18 @@ public class Location {
         @Column(name = "ID")
         private Integer id;
         @NonNull
-        private Integer kmtotal;
-        @NonNull
+        @Column(name = "DATELOC")
         private LocalDate dateLoc;
         @NonNull
-        private Double acompte;
-
+        @Column(name = "KMTOTAL")
+        private Integer kmtotal;
         @NonNull
-        @Formula("(SELECT l.kmtotal * t.prixKm FROM APITAXI t WHERE t.id = ID_3)")
+        @Column(name = "ACOMPTE")
+        private Double acompte;
+        @NonNull
+        @Column(name = "TOTAL")
+        @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM APITAXI t WHERE t.id = ID_3)")
         private Double total;
-
-        public Double getTotal() {
-            return total;
-        }
-    
-        public void setTotal(Double total) {
-            this.total = total;
-        }
 
         @NonNull
         @ManyToOne @JoinColumn(name = "ID_1")
@@ -57,5 +52,12 @@ public class Location {
         @ManyToOne @JoinColumn(name = "ID_4")
         private Client client;
 
+        public Double getTotal() {
+                return total;
+        }
+
+        public void setTotal(Double total) {
+                this.total = total;
+        }
 
 }
