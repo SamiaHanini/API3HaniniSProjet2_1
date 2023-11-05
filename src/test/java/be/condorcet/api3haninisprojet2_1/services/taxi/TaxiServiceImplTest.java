@@ -27,6 +27,7 @@ class TaxiServiceImplTest {
         try {
             Taxi taxi = new Taxi(null,"T-000-EST", "Essence", 1.5, new ArrayList<>());
             taxiServiceImpl.create(taxi);
+            taxi = taxiServiceImpl.read(taxi.getId());
             System.out.println("Création du taxi réussie : " + taxi);
 
         } catch (Exception e) {
@@ -51,7 +52,7 @@ class TaxiServiceImplTest {
         assertEquals("T-000-EST", taxi.getImmatriculation(), "Immatriculation non enregistrée : " + taxi.getImmatriculation() + " au lieu de T-000-EST");
         assertEquals("Essence", taxi.getCarburant(), "Carburant non enregistré : " + taxi.getCarburant() + " au lieu de Essence");
         assertEquals(1.5, taxi.getPrixKm(), "Prix au km non enregistré : " + taxi.getPrixKm() + " au lieu de 1.5");
-    }
+    } 
 
     @Test
     void read() {

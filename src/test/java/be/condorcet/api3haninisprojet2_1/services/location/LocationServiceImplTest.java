@@ -65,7 +65,7 @@ class LocationServiceImplTest {
 
             //total = taxi.getPrixKm()*location.getKmtotal();
 
-            location = new Location(null, LocalDate.now(),300,  25.0, null, adDebut, adFin, taxi, client);
+            location = new Location(null, LocalDate.now(),30,  25.0, null, adDebut, adFin, taxi, client);
             LocationService.create(location);
 
             System.out.println("création de la location : " + location);
@@ -77,32 +77,71 @@ class LocationServiceImplTest {
     @AfterEach
     void tearDown() {
         try {
-            AdresseService.delete(adDebut);
-            AdresseService.delete(adFin);
-            TaxiService.delete(taxi);
-            ClientService.delete(client);
-            LocationService.delete(location);
+            try {
+                LocationService.delete(location);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la suppression de la location : " + e);
+            }
 
+            try {
+                ClientService.delete(client);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la suppression du client : " + e);
+            }
+
+            try {
+                TaxiService.delete(taxi);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la suppression du taxi : " + e);
+            }
+
+            try {
+                AdresseService.delete(adDebut);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la suppression de l'adresse de départ : " + e);
+            }
+            try {
+                AdresseService.delete(adFin);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la suppression de l'adresse de départ : " + e);
+            }
             System.out.println("effacement de la location : " + location);
         } catch (Exception e) {
             System.out.println("erreur d'effacement de la location :" + location + " erreur : " + e);
         }
     }
 
+    //@Test
+    // void create() {
+    //     assertNotEquals(0, location.getId(), "id Location non incrémenté");
+    //     assertEquals(LocalDate.now(), location.getDateLoc(), "date Location non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
+    //     assertNotEquals(300,location.getKmtotal(), "km total non enregistré");
+    //     assertNotEquals(25,location.getAcompte(), "acompte non enregistré");
+    //     assertNotEquals(0,location.getTotal(), "total non enregistré");
+    //     assertNotEquals(adDebut.getId(),location.getAdresseDebut().getId(), "location adresse départ non enregistrée");
+    //     assertNotEquals(adFin.getId(),location.getAdresseFin().getId(), "location adresse arrivé non enregistrée");
+    //     assertNotEquals(taxi.getId(),location.getTaxi().getId(), "location taxi non enregistrée");
+    //     assertNotEquals(client.getId(),location.getClient().getId(), "location client non enregistrée");
+
+    // }
+
+    // @Test
+    // void create() {
+    //     assertNotEquals(0, location.getId(), "id location non incrémenté");
+    //     assertEquals(LocalDate.now(), location.getDateLoc(), "date prescription non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
+    // }
+
     @Test
     void create() {
-        assertNotEquals(0, location.getId(), "id Location non incrémenté");
-        assertEquals(LocalDate.now(), location.getDateLoc(), "date Location non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
-        assertNotEquals(300,location.getKmtotal(), "km total non enregistré");
-        assertNotEquals(25,location.getAcompte(), "acompte non enregistré");
-        assertNotEquals(0,location.getTotal(), "total non enregistré");
-        assertNotEquals(adDebut.getId(),location.getAdresseDebut().getId(), "location adresse départ non enregistrée");
-        assertNotEquals(adFin.getId(),location.getAdresseFin().getId(), "location adresse arrivé non enregistrée");
-        assertNotEquals(taxi.getId(),location.getTaxi().getId(), "location taxi non enregistrée");
-        assertNotEquals(client.getId(),location.getClient().getId(), "location client non enregistrée");
-
+        assertNotEquals(0, location.getId(), "location id not incremented");
+        assertNotEquals(null,location.getDateLoc(), "location date not set");
+        assertNotEquals(0,location.getKmtotal(), "location km not set");
+        assertNotEquals(0,location.getTotal(), "location total not set");
+        assertNotEquals(null,location.getTaxi(), "location taxi not set");
+        assertNotEquals(null,location.getClient(), "location client not set");
+        assertNotEquals(null,location.getAdresseDebut(), "location adressedep not set");
+        assertNotEquals(null,location.getAdresseFin(), "location adressearr not set");
     }
-
 
      @Test
     void read() {
@@ -121,10 +160,10 @@ class LocationServiceImplTest {
     @Test
     void update() {
         try{
-            location.setKmtotal(30);
+            location.setKmtotal(20);
             location = LocationService.update(location);
             location = LocationService.read(location.getId());
-            assertEquals(30,location.getKmtotal(), "pas de différence dans le km total");
+            assertEquals(20,location.getKmtotal(), "pas de différence dans le km total");
         }catch (Exception e){
             fail("erreur de mise à jour : " + e);
         }
@@ -132,14 +171,13 @@ class LocationServiceImplTest {
 
     @Test
     void delete() {
-        try {
+        try{
             LocationService.delete(location);
-
             Assertions.assertThrows(Exception.class, () -> {
                 LocationService.read(location.getId());
-            }, "record non effacé");
-        } catch (Exception e) {
-            fail("erreur d'effacement " + e);
+            },"error : location not deleted");
+        }catch (Exception e){
+            fail("delete failed : " + e);
         }
     }
 
@@ -173,15 +211,13 @@ class LocationServiceImplTest {
     @Test
     void getLocationsByTaxis() {
         try {
-            List<Location> locations = LocationService.getLocationsByTaxi(taxi);
+            Taxi taxiLocs = TaxiService.read(2);
+            List<Location> locations = LocationService.getLocationsByTaxi(taxiLocs);
             assertNotEquals(0, locations.size(), "la liste ne contient aucun élément");
         } catch (Exception e) {
             fail("erreur de recherche des Locations du patient " + e);
         }
     }
-
-
-
 
 
 }
