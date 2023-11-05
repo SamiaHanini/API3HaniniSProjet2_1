@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+
 public class TaxiServiceImpl implements InterfTaxiService{
 
      @Autowired
