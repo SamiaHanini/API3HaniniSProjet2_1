@@ -65,7 +65,7 @@ class LocationServiceImplTest {
 
             //total = taxi.getPrixKm()*location.getKmtotal();
 
-            location = new Location(null, 300, LocalDate.now(), 25.0, null, adDebut, adFin, taxi, client);
+            location = new Location(null, LocalDate.now(),300,  25.0, null, adDebut, adFin, taxi, client);
             LocationService.create(location);
 
             System.out.println("création de la location : " + location);

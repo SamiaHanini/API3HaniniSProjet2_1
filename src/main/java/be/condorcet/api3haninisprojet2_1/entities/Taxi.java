@@ -34,7 +34,7 @@ public class Taxi {
     @Column(name = "PRIXKM")
     private Double prixKm;
     @JsonIgnore
-    @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY,cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Location> llocations;
 

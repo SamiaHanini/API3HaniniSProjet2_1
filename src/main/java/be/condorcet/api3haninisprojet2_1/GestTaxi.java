@@ -41,7 +41,7 @@ public class GestTaxi {
         try {
             taxi = taxiService.read(id);
             model.put("monTaxi", taxi);
-            model.put("mesLocations", taxi.getLocations());
+            model.put("mesLocations", taxi.getLlocations());
             model.put("mesClientsPourTaxi", taxi.getClientsByTaxi());
             model.put("mesKmParcourus", taxi.getKilometresParcourus());
             model.put("monMontantTotal", taxi.getMontantTotalDesLocations());

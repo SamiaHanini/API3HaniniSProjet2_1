@@ -31,7 +31,6 @@ public class Location {
         @NonNull
         @Column(name = "ACOMPTE")
         private Double acompte;
-        @NonNull
         @Column(name = "TOTAL")
         @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM APITAXI t WHERE t.id = ID_3)")
         private Double total;
