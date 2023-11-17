@@ -7,7 +7,6 @@ import org.hibernate.annotations.Formula;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,20 +34,20 @@ public class Location {
         @Column(name = "TOTAL")
         @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM APITAXI t WHERE t.id = ID_3)")
         private Double total;
-
         @NonNull
+        @ToString.Exclude
         @ManyToOne @JoinColumn(name = "ID_1")
         private Adresse adresseDebut;
-
         @NonNull
+        @ToString.Exclude
         @ManyToOne @JoinColumn(name = "ID_2")
         private Adresse adresseFin;
-
         @NonNull
+        @ToString.Exclude
         @ManyToOne @JoinColumn(name = "ID_3")
         private Taxi taxi;
-
         @NonNull
+        @ToString.Exclude
         @ManyToOne @JoinColumn(name = "ID_4")
         private Client client;
 

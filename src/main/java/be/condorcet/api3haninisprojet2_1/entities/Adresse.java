@@ -1,7 +1,10 @@
 package be.condorcet.api3haninisprojet2_1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,5 +32,10 @@ public class Adresse {
     @NonNull
     @Column(name = "NUM")
     private String num;
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "adresse", fetch = FetchType.LAZY)
+    private List<Location> llocations;
+
 
 }

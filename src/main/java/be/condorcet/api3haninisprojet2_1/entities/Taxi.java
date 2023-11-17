@@ -34,11 +34,13 @@ public class Taxi {
     @Column(name = "PRIXKM")
     private Double prixKm;
     @JsonIgnore
-    @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY)
     private List<Location> llocations;
 
-     public List<Client> getClientsByTaxi() {
+
+
+    public List<Client> getClientsByTaxi() {
          List<Client> uniqueClients = new ArrayList<>();
          for (Location location : this.llocations) {
              Client client = location.getClient();

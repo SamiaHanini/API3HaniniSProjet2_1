@@ -32,11 +32,9 @@ public class Client {
     @Column(name = "TEL")
     private String tel;
     @JsonIgnore
-    @OneToMany(mappedBy = "client")
     @ToString.Exclude
+    @OneToMany(mappedBy = "client")
     private List<Location> llocations;
 
-   // public Client(Object o, String s, String testNom, String testPrenom, String s1) {
-    //}
 }
 
