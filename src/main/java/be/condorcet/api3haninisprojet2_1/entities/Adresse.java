@@ -34,8 +34,15 @@ public class Adresse {
     private String num;
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "adresse", fetch = FetchType.LAZY)
-    private List<Location> llocations;
+    @OneToMany(mappedBy = "adresseDebut", fetch = FetchType.LAZY)
+    private List<Location> llocationsDebut;
+
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "adresseFin", fetch = FetchType.LAZY)
+    private List<Location> llocationsFin;
+
+
 
 
 }

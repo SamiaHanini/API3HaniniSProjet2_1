@@ -17,8 +17,6 @@ import org.springframework.stereotype.Repository;
 public interface LocationRepository extends JpaRepository<Location, Integer>{
     
      List<Location> findLocationByTaxi(Taxi taxi);
-
-    List<Location> findLocationByDatesAndTaxi(Taxi t,LocalDate d1, LocalDate d2);
-
+    List<Location> findLocationByDateLocBetweenAndTaxi(LocalDate d1, LocalDate d2, Taxi t);
     List<Location> findLocationsByClient(Client cl);
 }

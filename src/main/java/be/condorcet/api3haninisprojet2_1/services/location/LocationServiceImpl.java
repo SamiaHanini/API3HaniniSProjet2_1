@@ -54,8 +54,8 @@ public class LocationServiceImpl implements InterfLocationService{
     }
 
     @Override
-    public List<Location> getLocationsByDatesAndTaxi(Taxi t, LocalDate d1, LocalDate d2) throws Exception{
-        return locationRepository.findLocationByDatesAndTaxi(t,d1, d2);
+    public List<Location> getLocationByDateLocBetweenAndTaxi(LocalDate d1, LocalDate d2, Taxi t) throws Exception{
+        return locationRepository.findLocationByDateLocBetweenAndTaxi(d1, d2, t);
     }
 
     @Override
