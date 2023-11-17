@@ -36,7 +36,6 @@ public class Adresse {
     @ToString.Exclude
     @OneToMany(mappedBy = "adresseDebut", fetch = FetchType.LAZY)
     private List<Location> llocationsDebut;
-
     @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "adresseFin", fetch = FetchType.LAZY)

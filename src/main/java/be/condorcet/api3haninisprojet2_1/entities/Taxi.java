@@ -39,7 +39,6 @@ public class Taxi {
     private List<Location> llocations;
 
 
-
     public List<Client> getClientsByTaxi() {
          List<Client> uniqueClients = new ArrayList<>();
          for (Location location : this.llocations) {
