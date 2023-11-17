@@ -54,18 +54,15 @@ public class LocationServiceImpl implements InterfLocationService{
     }
 
     @Override
-    public List<Location> getLocationsByDates(LocalDate now, LocalDate localDate) throws Exception{
-        return locationRepository.findLocationByDateLocBetween(now, localDate);
+    public List<Location> getLocationsByDatesAndTaxi(Taxi t, LocalDate d1, LocalDate d2) throws Exception{
+        return locationRepository.findLocationByDatesAndTaxi(t,d1, d2);
     }
 
     @Override
     public List<Location> getLocationsByClient(Client client) {
-        return locationRepository.findLocationsByClient(client);
+        List<Location> ll = locationRepository.findLocationsByClient(client);
+        return ll;
     }
 
-    // @Override
-    // public List<Location> getLocationsByTaxiAndDates(Taxi t, LocalDate d1, LocalDate d2) {
-    //     return locationRepository.findLocationsByTaxiAndDates(t, d1, d2);
-    // }
     
 }

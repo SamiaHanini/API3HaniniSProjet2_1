@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -51,21 +50,19 @@ class LocationServiceImplTest {
     void setUp() {
         try {
 
-            adDebut = new Adresse(null, 7000,"Mons", "Rue des arbres", "1A");
+            adDebut = new Adresse(7000,"Mons", "Rue des arbres", "1A");
             AdresseService.create(adDebut);
 
-            adFin = new Adresse(null, 7300,"Saint-Ghislain", "Rue des rochers", "34");
+            adFin = new Adresse(7300,"Saint-Ghislain", "Rue des rochers", "34");
             AdresseService.create(adFin);
 
-            taxi = new Taxi(null, "T-000-EST", "ESSENCE", 10.0, new ArrayList<>());
+            taxi = new Taxi("T-000-EST", "ESSENCE", 10.0);
             TaxiService.create(taxi);
 
             client = new Client("clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
             ClientService.create(client);
 
-            //total = taxi.getPrixKm()*location.getKmtotal();
-
-            location = new Location(null, LocalDate.now(),30,  25.0, null, adDebut, adFin, taxi, client);
+            location = new Location(LocalDate.now(),30,  25.0, null, adDebut, adFin, taxi, client);
             LocationService.create(location);
 
             System.out.println("création de la location : " + location);
@@ -88,7 +85,6 @@ class LocationServiceImplTest {
             } catch (Exception e) {
                 System.out.println("Erreur lors de la suppression du client : " + e);
             }
-
             try {
                 TaxiService.delete(taxi);
             } catch (Exception e) {
@@ -199,8 +195,8 @@ class LocationServiceImplTest {
 
             LocalDate start = LocalDate.of(2023, 1, 12);
             LocalDate end = LocalDate.of(2023, 2, 19);
-
-            List<Location> locations = LocationService.getLocationsByDates(start, end);
+            Taxi taxiLocs = TaxiService.read(2);
+            List<Location> locations = LocationService.getLocationsByDatesAndTaxi(taxiLocs,start, end);
 
             assertNotEquals(0, locations.size(), "la liste ne contient aucun élément");
         } catch (Exception e) {

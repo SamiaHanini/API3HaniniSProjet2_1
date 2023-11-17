@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdresseRepository extends JpaRepository<Adresse, Integer>{
 
-    List<Adresse> findByCp(int cp);
+    List<Adresse> findByLocalite(String loc);
 }
     
 

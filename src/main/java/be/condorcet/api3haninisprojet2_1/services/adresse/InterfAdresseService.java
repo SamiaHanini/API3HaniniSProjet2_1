@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface InterfAdresseService extends InterfaceService<Adresse> {
 
-    List<Adresse> read(int cp) throws Exception;
+    List<Adresse> read(String loc) throws Exception;
 
 }

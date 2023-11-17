@@ -21,7 +21,7 @@ public class Taxi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taxi_generator")
-    @SequenceGenerator(name = "taxi_generator", sequenceName = "APITAXI_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "taxi_generator", sequenceName = "APITAXI_ID_SEQ", allocationSize = 1)
     @Column(name = "ID")
     private Integer id;
     @NonNull
@@ -38,39 +38,39 @@ public class Taxi {
     @ToString.Exclude
     private List<Location> llocations;
 
-    public List<Client> getClientsByTaxi() {
-        List<Client> uniqueClients = new ArrayList<>();
-        for (Location location : this.llocations) {
-            Client client = location.getClient();
+     public List<Client> getClientsByTaxi() {
+         List<Client> uniqueClients = new ArrayList<>();
+         for (Location location : this.llocations) {
+             Client client = location.getClient();
             if (!uniqueClients.contains(client)) {
-                uniqueClients.add(client);
-            }
-        }
-        return uniqueClients;
-    }
-    
-    
-    public int getKilometresParcourus() {
-        int totalKm = 0;
-        for (Location location : this.llocations) {
-            totalKm += location.getKmtotal();
-        }
-        return totalKm;
-    }
-    
-    public float getMontantTotalDesLocations() {
-        float totalMontant = 0;
-        for (Location location : this.llocations) {
-            totalMontant += location.getTotal();
-        }
-        return totalMontant;
-    }
-    
+                 uniqueClients.add(client);
+             }
+         }
+         return uniqueClients;
+     }
 
-    public List<Location> getLocationEntreDeuxDates(LocalDate d1, LocalDate d2) {
-    return llocations.stream()
+
+     public int getKilometresParcourus() {
+         int totalKm = 0;
+         for (Location location : this.llocations) {
+             totalKm += location.getKmtotal();
+         }
+         return totalKm;
+     }
+
+     public float getMontantTotalDesLocations() {
+         float totalMontant = 0;
+         for (Location location : this.llocations) {
+             totalMontant += location.getTotal();
+         }
+         return totalMontant;
+    }
+
+
+     public List<Location> getLocationEntreDeuxDates(LocalDate d1, LocalDate d2) {
+     return llocations.stream()
             .filter(loc -> loc.getDateLoc().isAfter(d1.minusDays(1)) && loc.getDateLoc().isBefore(d2.plusDays(1)))
-            .collect(Collectors.toList());
-        }
+             .collect(Collectors.toList());
+         }
 
 }

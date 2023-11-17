@@ -10,8 +10,8 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @ToString
 @Entity
 @Table(name = "APILOCATION", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
@@ -19,7 +19,7 @@ public class Location {
 
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_generator")
-        @SequenceGenerator(name = "location_generator", sequenceName = "APILOCATION_SEQ", allocationSize = 1)
+        @SequenceGenerator(name = "location_generator", sequenceName = "APILOCATION_ID_SEQ", allocationSize = 1)
         @Column(name = "ID")
         private Integer id;
         @NonNull
@@ -31,6 +31,7 @@ public class Location {
         @NonNull
         @Column(name = "ACOMPTE")
         private Double acompte;
+        @NonNull
         @Column(name = "TOTAL")
         @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM APITAXI t WHERE t.id = ID_3)")
         private Double total;

@@ -3,9 +3,7 @@ package be.condorcet.api3haninisprojet2_1.services.taxi;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.InterfaceService;
 import be.condorcet.api3haninisprojet2_1.entities.Client;
-import be.condorcet.api3haninisprojet2_1.entities.Location;
 
-import java.time.LocalDate;
 import java.util.List;
 
 

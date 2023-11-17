@@ -51,5 +51,11 @@ public class ClientServiceImpl implements InterfClientService{
         return clientRepository.findByNom(nom+"%");
     }
 
-    
+    @Override
+    public Client read(String nom, String prenom, String tel) throws Exception {
+        return clientRepository.findByNomAndPrenomAndTel(nom, prenom, tel);
+    }
+
+
+
 }

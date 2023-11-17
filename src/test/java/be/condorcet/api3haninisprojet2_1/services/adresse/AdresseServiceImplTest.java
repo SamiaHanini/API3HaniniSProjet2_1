@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.List;
 
 @SpringBootTest
@@ -26,7 +22,7 @@ class AdresseServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            adresse = new Adresse(null, 1200, "Baudour", "Rue des parapluies", "5");
+            adresse = new Adresse(1200, "Baudour", "Rue des parapluies", "5");
             adresseServiceImpl.create(adresse);
 
             System.out.println("Création de l'adresse : " + adresse);
@@ -39,7 +35,6 @@ class AdresseServiceImplTest {
     void tearDown() {
         try {
             adresseServiceImpl.delete(adresse);
-
             System.out.println("Suppression de l'adresse : " + adresse);
         } catch (Exception e) {
             System.out.println("Erreur lors de la suppression de l'adresse : " + e.getMessage());
@@ -53,6 +48,7 @@ class AdresseServiceImplTest {
         assertEquals("Baudour", adresse.getLocalite(), "La ville enregistrée est incorrecte : " + adresse.getLocalite() + " au lieu de Mons");
         assertEquals("Rue des parapluies", adresse.getRue(), "La rue enregistrée est incorrecte : " + adresse.getRue() + " au lieu de Rue de la chaussée");
         assertEquals("5", adresse.getNum(), "Le numéro enregistré est incorrect : " + adresse.getNum() + " au lieu de 1");
+        assertNotNull(adresse.getId(), "L'ID de l'adresse est null après la création");
     }
     
 
@@ -73,23 +69,23 @@ class AdresseServiceImplTest {
     
 
     @Test
-    void rechCodePostal() {
+    void rechLocalite() {
         try {
-            List<Adresse> adresses = adresseServiceImpl.read(7000); 
+            List<Adresse> adresses = adresseServiceImpl.read("Baudour"); 
             boolean trouve = false;
             for (Adresse adresse : adresses) {
-                if (adresse.getCp() == 7000) { 
+                if (adresse.getLocalite().equals("Baudour")) { 
                     trouve = true;
-                } else {
-                    fail("L'adresse actuelle n'a pas le code postal spécifié.");
+                    break;  // Sortir de la boucle dès qu'une correspondance est trouvée
                 }
             }
-            assertTrue(trouve, "Aucune adresse trouvée dans la liste pour le code postal spécifié.");
+            assertTrue(trouve, "Aucune adresse trouvée dans la liste pour la localité spécifiée.");
         } catch (Exception e) {
             // En cas d'erreur, affichons un message explicatif
-            System.out.println("Erreur lors de la recherche d'adresses par code postal : " + e.getMessage());
+            System.out.println("Erreur lors de la recherche d'adresses par localité : " + e.getMessage());
         }
     }
+
     
 
     @Test

@@ -18,7 +18,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer>{
     
      List<Location> findLocationByTaxi(Taxi taxi);
 
-    List<Location> findLocationByDateLocBetween(LocalDate d1, LocalDate d2);
+    List<Location> findLocationByDatesAndTaxi(Taxi t,LocalDate d1, LocalDate d2);
 
     List<Location> findLocationsByClient(Client cl);
 }

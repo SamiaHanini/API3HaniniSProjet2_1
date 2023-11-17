@@ -12,9 +12,8 @@ public interface InterfLocationService extends InterfaceService<Location> {
     
     List<Location> getLocationsByTaxi(Taxi t) throws Exception;
 
-    List<Location> getLocationsByDates(LocalDate now, LocalDate localDate) throws Exception;
+    List<Location> getLocationsByDatesAndTaxi(Taxi t, LocalDate d1, LocalDate d2) throws Exception;
 
      List<Location> getLocationsByClient(Client cl) throws Exception;
 
-   // List<Location> getLocationsByTaxiAndDates(Taxi taxi, LocalDate now, LocalDate localDate) throws Exception;
 }

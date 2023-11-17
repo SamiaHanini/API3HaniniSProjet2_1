@@ -1,15 +1,12 @@
 package be.condorcet.api3haninisprojet2_1.services.taxi;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
-import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
-import be.condorcet.api3haninisprojet2_1.repositories.LocationRepository;
 import be.condorcet.api3haninisprojet2_1.repositories.TaxiRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

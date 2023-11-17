@@ -1,7 +1,7 @@
 package be.condorcet.api3haninisprojet2_1.services.taxi;
 
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
-import be.condorcet.api3haninisprojet2_1.services.taxi.InterfTaxiService;
+import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -25,7 +24,7 @@ class TaxiServiceImplTest {
     @BeforeEach
     void setUp() {
         try {
-            Taxi taxi = new Taxi(null,"T-000-EST", "Essence", 1.5, new ArrayList<>());
+            taxi = new Taxi("T-000-EST", "Essence", 1.5);
             taxiServiceImpl.create(taxi);
             taxi = taxiServiceImpl.read(taxi.getId());
             System.out.println("Création du taxi réussie : " + taxi);
@@ -39,12 +38,13 @@ class TaxiServiceImplTest {
     void tearDown() {
         try {
             taxiServiceImpl.delete(taxi);
-             System.out.println("Suppression du taxi réussie : " + taxi);
+            System.out.println("Suppression du taxi réussie : " + taxi);
 
         } catch (Exception e) {
             System.out.println("Erreur d'effacement du taxi : " + taxi + ". Erreur : " + e);
         }
     }
+
 
     @Test
     void create() {
@@ -52,7 +52,7 @@ class TaxiServiceImplTest {
         assertEquals("T-000-EST", taxi.getImmatriculation(), "Immatriculation non enregistrée : " + taxi.getImmatriculation() + " au lieu de T-000-EST");
         assertEquals("Essence", taxi.getCarburant(), "Carburant non enregistré : " + taxi.getCarburant() + " au lieu de Essence");
         assertEquals(1.5, taxi.getPrixKm(), "Prix au km non enregistré : " + taxi.getPrixKm() + " au lieu de 1.5");
-    } 
+    }
 
     @Test
     void read() {

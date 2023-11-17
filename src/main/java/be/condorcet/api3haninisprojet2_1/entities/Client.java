@@ -1,10 +1,9 @@
 package be.condorcet.api3haninisprojet2_1.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.*;
-
 
 @Data
 @NoArgsConstructor
@@ -13,12 +12,11 @@ import java.util.*;
 @ToString
 @Entity
 @Table(name = "APITCLIENT", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
-
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_generator")
-    @SequenceGenerator(name = "client_generator", sequenceName = "APITCLIENT_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "client_generator", sequenceName = "APITCLIENT_ID_SEQ", allocationSize = 1)
     @Column(name = "ID")
     private Integer id;
     @NonNull
@@ -29,7 +27,7 @@ public class Client {
     private String nom;
     @NonNull
     @Column(name = "PRENOM")
-    private String  prenom;
+    private String prenom;
     @NonNull
     @Column(name = "TEL")
     private String tel;
@@ -37,6 +35,8 @@ public class Client {
     @OneToMany(mappedBy = "client")
     @ToString.Exclude
     private List<Location> llocations;
-    
+
+   // public Client(Object o, String s, String testNom, String testPrenom, String s1) {
+    //}
 }
 
