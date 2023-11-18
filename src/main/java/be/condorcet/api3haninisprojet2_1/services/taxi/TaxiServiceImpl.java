@@ -1,6 +1,7 @@
 package be.condorcet.api3haninisprojet2_1.services.taxi;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.repositories.TaxiRepository;
 import jakarta.transaction.Transactional;
@@ -48,26 +49,30 @@ public class TaxiServiceImpl implements InterfTaxiService{
     }
 
     @Override
-    public List<Taxi> read(String car) throws Exception {
-        return taxiRepository.findByCarburant(car+"%");
+    public List<Taxi> read(String carburant) throws Exception {
+        return taxiRepository.findByCarburant(carburant+"%");
     }
 
     @Override
-    public List<Client> getClientsByTaxi(Integer idTaxi) throws Exception {
-        Taxi t = read(idTaxi);
-        return t.getClientsByTaxi();
+    public List<Client> clientsForTaxi(Integer idTaxi) throws Exception{
+        return taxiRepository.clientsForTaxi(idTaxi);
+
+    }
+    /*@Override
+    public List<Location> locationsForTaxi(Integer idTaxi) throws Exception{
+        return taxiRepository.locationsForTaxi(idTaxi);
+    }*/
+
+    @Override
+    public Double totalKilometersForTaxi(Integer idTaxi) throws Exception {
+       return taxiRepository.totalKilometersForTaxi(idTaxi);
+
     }
 
     @Override
-    public int getKilometresParcourus(Integer idTaxi) throws Exception {
-        Taxi taxi = read(idTaxi);
-        return taxi.getKilometresParcourus();
-    }
+    public Double totalCostForTaxi(Integer idTaxi) throws Exception {
+        return taxiRepository.totalCostForTaxi(idTaxi);
 
-    @Override
-    public float getMontantTotalDesLocations(Integer idTaxi) throws Exception {
-        Taxi taxi = read(idTaxi);
-        return taxi.getMontantTotalDesLocations();
     }
 
     

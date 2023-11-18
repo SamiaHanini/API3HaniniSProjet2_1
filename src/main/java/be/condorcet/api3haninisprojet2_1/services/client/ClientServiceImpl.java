@@ -1,6 +1,8 @@
 package be.condorcet.api3haninisprojet2_1.services.client;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Location;
+import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.repositories.ClientRepository;
 
 import jakarta.transaction.Transactional;
@@ -56,6 +58,9 @@ public class ClientServiceImpl implements InterfClientService{
         return clientRepository.findByNomAndPrenomAndTel(nom, prenom, tel);
     }
 
-
+    /*@Override
+    public List<Client> read(Taxi taxi) throws Exception {
+        return clientRepository.findByTaxi(taxi);
+    }*/
 
 }

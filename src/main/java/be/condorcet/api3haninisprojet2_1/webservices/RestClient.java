@@ -1,7 +1,9 @@
 package be.condorcet.api3haninisprojet2_1.webservices;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.client.InterfClientService;
+import be.condorcet.api3haninisprojet2_1.services.taxi.InterfTaxiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class RestClient {
     @Autowired
     private InterfClientService clientServiceImpl;
 
+    @Autowired
+    private InterfTaxiService taxiServiceImpl;
+
 
     //-------------------Retrouver le client correspondant à un id donné--------------------------------------------------------
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -26,7 +31,7 @@ public class RestClient {
     }
 
     //-------------------Retrouver les clients portant un nom donné--------------------------------------------------------
-    @RequestMapping(value = "/nom={nom}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{nom}", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> listClientsNom(@PathVariable(value = "nom") String nom) throws Exception {
         System.out.println("recherche de " + nom);
         List<Client> clients;
@@ -43,6 +48,16 @@ public class RestClient {
         Client client = clientServiceImpl.read(nom, prenom, tel);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
+    //-------------------Retrouver le client correspondant à un taxidonné--------------------------------------------------------@RequestMapping(value = "/idtaxi={idtaxi}", method = RequestMethod.GET)
+   /* public ResponseEntity<List<Client>> getFactureTaxi(@PathVariable(value = "idtaxi") int id) throws Exception {
+        System.out.println("recherche des clients du taxi d'id " + id);
+        Taxi taxi = taxiServiceImpl.read(id);
+        System.out.println(taxi);
+        List<Client> llc = clientServiceImpl.read(taxi);
+        return new ResponseEntity<>(llc, HttpStatus.OK);
+    }*/
+    
 
     //-------------------Créer un client--------------------------------------------------------
     @RequestMapping(value = "", method = RequestMethod.POST)

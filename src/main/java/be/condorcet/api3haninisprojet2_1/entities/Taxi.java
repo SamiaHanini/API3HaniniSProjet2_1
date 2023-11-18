@@ -32,7 +32,7 @@ public class Taxi {
     private String carburant;
     @NonNull
     @Column(name = "PRIXKM")
-    private Double prixKm;
+    private Double prixkm;
     @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY)

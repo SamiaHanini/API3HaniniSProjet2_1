@@ -1,5 +1,6 @@
 package be.condorcet.api3haninisprojet2_1.services.taxi;
 
+import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.InterfaceService;
 import be.condorcet.api3haninisprojet2_1.entities.Client;
@@ -11,11 +12,14 @@ public interface InterfTaxiService extends InterfaceService<Taxi>{
 
      List<Taxi> read(String carburant) throws Exception;
 
-    List<Client> getClientsByTaxi(Integer idTaxi) throws Exception;
 
-    int getKilometresParcourus(Integer idTaxi) throws Exception;
+    List<Client> clientsForTaxi(Integer idTaxi) throws Exception;
 
-    float getMontantTotalDesLocations(Integer idTaxi) throws Exception;
+    /*List<Location> locationsForTaxi(Integer idTaxi) throws Exception;*/
+
+    Double totalKilometersForTaxi(Integer idTaxi) throws Exception;
+
+    Double totalCostForTaxi(Integer idTaxi) throws Exception;
 
     
 }

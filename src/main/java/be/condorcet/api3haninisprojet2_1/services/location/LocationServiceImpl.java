@@ -49,13 +49,13 @@ public class LocationServiceImpl implements InterfLocationService{
 
     @Override
     public List<Location> getLocationsByTaxi(Taxi t) throws Exception{
-        List<Location> ll = locationRepository.findLocationByTaxi(t);
+        List<Location> ll = locationRepository.findLocationsByTaxi(t);
         return ll;
     }
 
     @Override
     public List<Location> getLocationByDateLocBetweenAndTaxi(LocalDate d1, LocalDate d2, Taxi t) throws Exception{
-        return locationRepository.findLocationByDateLocBetweenAndTaxi(d1, d2, t);
+        return locationRepository.findLocationsByDateLocBetweenAndTaxi(d1, d2, t);
     }
 
     @Override

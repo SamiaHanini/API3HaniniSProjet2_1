@@ -1,5 +1,6 @@
 package be.condorcet.api3haninisprojet2_1.services.taxi;
 
+import be.condorcet.api3haninisprojet2_1.entities.Client;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +52,7 @@ class TaxiServiceImplTest {
         assertNotEquals(0, taxi.getId(), "Identifiant du taxi non incrémenté");
         assertEquals("T-000-EST", taxi.getImmatriculation(), "Immatriculation non enregistrée : " + taxi.getImmatriculation() + " au lieu de T-000-EST");
         assertEquals("Essence", taxi.getCarburant(), "Carburant non enregistré : " + taxi.getCarburant() + " au lieu de Essence");
-        assertEquals(1.5, taxi.getPrixKm(), "Prix au km non enregistré : " + taxi.getPrixKm() + " au lieu de 1.5");
+        assertEquals(1.5, taxi.getPrixkm(), "Prix au km non enregistré : " + taxi.getPrixkm() + " au lieu de 1.5");
     }
 
     @Test
@@ -62,7 +63,7 @@ class TaxiServiceImplTest {
 
             assertEquals(taxi.getImmatriculation(), taxi2.getImmatriculation(), "Immatriculation différente " + taxi.getImmatriculation() + " au lieu de " + taxi2.getImmatriculation());
             assertEquals(taxi.getCarburant(), taxi2.getCarburant(), "Carburant différent " + taxi.getCarburant() + " au lieu de " + taxi2.getCarburant());
-            assertEquals(taxi.getPrixKm(), taxi2.getPrixKm(), "Prix au km différent " + taxi.getPrixKm() + " au lieu de " + taxi2.getPrixKm());
+            assertEquals(taxi.getPrixkm(), taxi2.getPrixkm(), "Prix au km différent " + taxi.getPrixkm() + " au lieu de " + taxi2.getPrixkm());
         } catch (Exception e) {
             System.out.println("Erreur de création du taxi : " + taxi + " erreur : " + e);
         }
@@ -73,11 +74,11 @@ class TaxiServiceImplTest {
         try {
             taxi.setImmatriculation("T-002-EST");
             taxi.setCarburant("Diesel");
-            taxi.setPrixKm(2.0);
+            taxi.setPrixkm(2.0);
             taxi = taxiServiceImpl.update(taxi);
             assertEquals("T-002-EST", taxi.getImmatriculation(), "Immatriculation différente de \"T-002-EST\"");
             assertEquals("Diesel", taxi.getCarburant(), "Carburant différent de Diesel");
-            assertEquals(2.0, taxi.getPrixKm(), "Prix au km différent de 2.0");
+            assertEquals(2.0, taxi.getPrixkm(), "Prix au km différent de 2.0");
         } catch (Exception e) {
             System.out.println("Erreur de mise à jour du taxi : " + taxi + " erreur : " + e);
         }
@@ -122,4 +123,18 @@ class TaxiServiceImplTest {
             fail("Recherche infructueuse : " + e);
         }
     }
+
+
+    @Test
+    void clientsForTaxi() {
+        try {
+            List<Client> clients = taxiServiceImpl.clientsForTaxi(1);
+            clients.forEach(System.out::println);
+
+            assertNotEquals(0, clients.size(), "la liste ne contient aucun élément");
+        } catch (Exception e) {
+            fail("erreur de recherche de taxis par client " + e);
+        }
+    }
+
 }

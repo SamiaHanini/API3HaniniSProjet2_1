@@ -55,14 +55,6 @@ public class RestLocation {
     }
 
     //-------------------Retrouver la location correspondant à une période et un taxi--------------------------------------------------------
-    // @RequestMapping(value = "/idtaxi={id}", method = RequestMethod.GET)
-    // public ResponseEntity<List<Location>> getLocationBetweenDatesAndTaxi(@PathVariable(value = "id") int id) throws Exception {
-    //     System.out.println("recherche des locations du taxi d'id " + id + "dans la période du" + d1 + "-" + d2);
-    //     Client cl = clientServiceImpl.read(id);
-    //     List<Location> lloc = locationServiceImpl.getLocationsByDatesAndTaxi(t, d1, d2);
-    //     return new ResponseEntity<>(lloc, HttpStatus.OK);
-    // }
-
     @RequestMapping(value = "/idtaxi={id}&start={start}&end={end}", method = RequestMethod.GET)
     public ResponseEntity<List<Location>> getLocationBetweenDatesAndTaxi(
             @PathVariable(value = "id") int id,
@@ -72,7 +64,7 @@ public class RestLocation {
         System.out.println("Recherche des locations du taxi d'id " + id + " dans la période du " + start + " au " + end);
         
         Taxi taxi = taxiServiceImpl.read(id);
-        List<Location> locations = locationServiceImpl.getLocationsByDatesAndTaxi(taxi, start, end);
+        List<Location> locations = locationServiceImpl.getLocationByDateLocBetweenAndTaxi(start, end, taxi);
         
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }
