@@ -25,7 +25,7 @@ public class RestTaxi {
     }
 
     //-------------------Retrouver les taxis avec un carburant donnée--------------------------------------------------------
-    @RequestMapping(value = "/{carburant}", method = RequestMethod.GET)
+    @RequestMapping(value = "/carburant={carburant}", method = RequestMethod.GET)
     public ResponseEntity<List<Taxi>> listTaxisCarburant(@PathVariable(value = "carburant") String carburant) throws Exception {
         System.out.println("recherche de la carburant " + carburant);
         List<Taxi> taxis;
