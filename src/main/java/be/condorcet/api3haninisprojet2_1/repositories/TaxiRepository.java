@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TaxiRepository extends JpaRepository<Taxi, Integer>{
     
-    List<Taxi> findByCarburant(String carburant);
+    List<Taxi> findByCarburantLike(String carburant);
 
     @Query(value = """
             SELECT DISTINCT c

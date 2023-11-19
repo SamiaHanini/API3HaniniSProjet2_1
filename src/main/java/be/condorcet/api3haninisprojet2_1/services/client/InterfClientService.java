@@ -13,7 +13,7 @@ public interface InterfClientService extends InterfaceService<Client>{
 
     Client read(String nom, String prenom, String tel) throws Exception;
 
-    /*List<Client> read(Taxi taxi) throws Exception;*/
+    /*List<Client> read(Taxi t) throws Exception;*/
 
 
 }

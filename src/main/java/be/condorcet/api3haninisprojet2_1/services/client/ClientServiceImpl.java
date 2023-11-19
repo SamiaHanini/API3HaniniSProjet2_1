@@ -58,9 +58,11 @@ public class ClientServiceImpl implements InterfClientService{
         return clientRepository.findByNomAndPrenomAndTel(nom, prenom, tel);
     }
 
-    /*@Override
-    public List<Client> read(Taxi taxi) throws Exception {
-        return clientRepository.findByTaxi(taxi);
+   /* @Override
+    public List<Client> read(Taxi t) throws Exception {
+        return clientRepository.findClientByTaxi(t);
+
     }*/
+
 
 }

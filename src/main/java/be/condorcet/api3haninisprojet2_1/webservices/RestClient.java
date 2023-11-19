@@ -1,6 +1,7 @@
 package be.condorcet.api3haninisprojet2_1.webservices;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.client.InterfClientService;
 import be.condorcet.api3haninisprojet2_1.services.taxi.InterfTaxiService;
@@ -50,11 +51,11 @@ public class RestClient {
     }
 
     //-------------------Retrouver le client correspondant à un taxidonné--------------------------------------------------------@RequestMapping(value = "/idtaxi={idtaxi}", method = RequestMethod.GET)
-   /* public ResponseEntity<List<Client>> getFactureTaxi(@PathVariable(value = "idtaxi") int id) throws Exception {
+    /*@RequestMapping(value = "/idtaxi={id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Client>> getClientTaxi(@PathVariable(value = "id") int id) throws Exception {
         System.out.println("recherche des clients du taxi d'id " + id);
-        Taxi taxi = taxiServiceImpl.read(id);
-        System.out.println(taxi);
-        List<Client> llc = clientServiceImpl.read(taxi);
+        Taxi t = taxiServiceImpl.read(id);
+        List<Client> llc = clientServiceImpl.read(t);
         return new ResponseEntity<>(llc, HttpStatus.OK);
     }*/
     
