@@ -52,7 +52,7 @@ class TaxiServiceImplTest {
         assertNotEquals(0, taxi.getId(), "Identifiant du taxi non incrémenté");
         assertEquals("T-000-EST", taxi.getImmatriculation(), "Immatriculation non enregistrée : " + taxi.getImmatriculation() + " au lieu de T-000-EST");
         assertEquals("Essence", taxi.getCarburant(), "Carburant non enregistré : " + taxi.getCarburant() + " au lieu de Essence");
-        assertEquals(1.5, taxi.getPrixkm(), "Prix au km non enregistré : " + taxi.getPrixkm() + " au lieu de 1.5");
+        assertEquals(1.5, taxi.getPrixKm(), "Prix au km non enregistré : " + taxi.getPrixKm() + " au lieu de 1.5");
     }
 
     @Test
@@ -63,7 +63,7 @@ class TaxiServiceImplTest {
 
             assertEquals(taxi.getImmatriculation(), taxi2.getImmatriculation(), "Immatriculation différente " + taxi.getImmatriculation() + " au lieu de " + taxi2.getImmatriculation());
             assertEquals(taxi.getCarburant(), taxi2.getCarburant(), "Carburant différent " + taxi.getCarburant() + " au lieu de " + taxi2.getCarburant());
-            assertEquals(taxi.getPrixkm(), taxi2.getPrixkm(), "Prix au km différent " + taxi.getPrixkm() + " au lieu de " + taxi2.getPrixkm());
+            assertEquals(taxi.getPrixKm(), taxi2.getPrixKm(), "Prix au km différent " + taxi.getPrixKm() + " au lieu de " + taxi2.getPrixKm());
         } catch (Exception e) {
             System.out.println("Erreur de création du taxi : " + taxi + " erreur : " + e);
         }
@@ -74,11 +74,11 @@ class TaxiServiceImplTest {
         try {
             taxi.setImmatriculation("T-002-EST");
             taxi.setCarburant("Diesel");
-            taxi.setPrixkm(2.0);
+            taxi.setPrixKm(2.0);
             taxi = taxiServiceImpl.update(taxi);
             assertEquals("T-002-EST", taxi.getImmatriculation(), "Immatriculation différente de \"T-002-EST\"");
             assertEquals("Diesel", taxi.getCarburant(), "Carburant différent de Diesel");
-            assertEquals(2.0, taxi.getPrixkm(), "Prix au km différent de 2.0");
+            assertEquals(2.0, taxi.getPrixKm(), "Prix au km différent de 2.0");
         } catch (Exception e) {
             System.out.println("Erreur de mise à jour du taxi : " + taxi + " erreur : " + e);
         }

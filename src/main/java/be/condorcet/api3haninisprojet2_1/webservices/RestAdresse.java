@@ -27,7 +27,7 @@ public class RestAdresse {
     }
 
     //-------------------Retrouver les adresses portant une localité donnée--------------------------------------------------------
-    @RequestMapping(value = "/{localite}", method = RequestMethod.GET)
+    @RequestMapping(value = "/localite={localite}", method = RequestMethod.GET)
     public ResponseEntity<List<Adresse>> listAdressesLocalite(@PathVariable(value = "localite") String localite) throws Exception {
         System.out.println("recherche de la localite " + localite);
         List<Adresse> adresses;

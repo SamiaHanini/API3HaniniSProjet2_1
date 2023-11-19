@@ -41,7 +41,7 @@ public class RestLocation {
     public ResponseEntity<List<Location>> getLocationTaxi(@PathVariable(value = "id") int id) throws Exception {
         System.out.println("recherche des locations du taxi d'id " + id);
         Taxi taxi = taxiServiceImpl.read(id);
-        List<Location> lloc = locationServiceImpl.getLocationsByTaxi(taxi);
+        List<Location> lloc = locationServiceImpl.read(taxi);
         return new ResponseEntity<>(lloc, HttpStatus.OK);
     }
 
@@ -50,21 +50,21 @@ public class RestLocation {
     public ResponseEntity<List<Location>> getLocationClient(@PathVariable(value = "id") int id) throws Exception {
         System.out.println("recherche des commandes du client d'id " + id);
         Client cl = clientServiceImpl.read(id);
-        List<Location> lloc = locationServiceImpl.getLocationsByClient(cl);
+        List<Location> lloc = locationServiceImpl.read(cl);
         return new ResponseEntity<>(lloc, HttpStatus.OK);
     }
 
     //-------------------Retrouver la location correspondant à une période et un taxi--------------------------------------------------------
-    @RequestMapping(value = "/idtaxi={id}&start={start}&end={end}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{d1}/{d2}{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Location>> getLocationBetweenDatesAndTaxi(
-            @PathVariable(value = "id") int id,
-            @PathVariable(value = "start") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
-            @PathVariable(value = "end") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end
-    ) throws Exception {
-        System.out.println("Recherche des locations du taxi d'id " + id + " dans la période du " + start + " au " + end);
+            @PathVariable(value = "d1") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate d1,
+            @PathVariable(value = "d2") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate d2,
+            @PathVariable(value = "id") int id
+            ) throws Exception {
+        System.out.println("Recherche des locations du taxi d'id " + id + " dans la période du " + d1  + " au " + d2);
         
         Taxi taxi = taxiServiceImpl.read(id);
-        List<Location> locations = locationServiceImpl.getLocationByDateLocBetweenAndTaxi(start, end, taxi);
+        List<Location> locations = locationServiceImpl.getLocationByDateLocBetweenAndTaxi(d1, d2, taxi);
         
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }

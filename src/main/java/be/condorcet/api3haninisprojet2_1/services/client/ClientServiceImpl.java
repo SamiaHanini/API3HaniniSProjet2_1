@@ -50,7 +50,7 @@ public class ClientServiceImpl implements InterfClientService{
 
     @Override
     public List<Client> read(String nom) throws Exception {
-        return clientRepository.findByNom(nom+"%");
+        return clientRepository.findByNomLike(nom);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class RestClient {
     }
 
     //-------------------Retrouver les clients portant un nom donné--------------------------------------------------------
-    @RequestMapping(value = "/{nom}", method = RequestMethod.GET)
+    @RequestMapping(value = "/nom={nom}", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> listClientsNom(@PathVariable(value = "nom") String nom) throws Exception {
         System.out.println("recherche de " + nom);
         List<Client> clients;

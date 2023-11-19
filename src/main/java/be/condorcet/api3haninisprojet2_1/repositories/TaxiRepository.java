@@ -11,7 +11,7 @@ import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 
 import org.springframework.stereotype.Repository;
 
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @Repository
 public interface TaxiRepository extends JpaRepository<Taxi, Integer>{
     
@@ -31,7 +31,7 @@ public interface TaxiRepository extends JpaRepository<Taxi, Integer>{
     @Query(value = "SELECT SUM(l.kmtotal) FROM Location l WHERE l.taxi.id = :taxiId")
     Double totalKilometersForTaxi(@Param("taxiId") Integer taxiId);
 
-    @Query(value = "SELECT SUM(l.kmtotal * t.prixkm) FROM Location l JOIN l.taxi t WHERE t.id = :taxiId")
+    @Query(value = "SELECT SUM(l.kmtotal * t.prixKm) FROM Location l JOIN l.taxi t WHERE t.id = :taxiId")
     Double totalCostForTaxi(@Param("taxiId") Integer taxiId);
 
 

@@ -50,7 +50,7 @@ public class TaxiServiceImpl implements InterfTaxiService{
 
     @Override
     public List<Taxi> read(String carburant) throws Exception {
-        return taxiRepository.findByCarburant(carburant+"%");
+        return taxiRepository.findByCarburant(carburant);
     }
 
     @Override

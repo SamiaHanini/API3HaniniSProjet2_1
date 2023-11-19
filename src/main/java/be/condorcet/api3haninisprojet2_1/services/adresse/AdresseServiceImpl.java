@@ -47,8 +47,8 @@ public class AdresseServiceImpl implements InterfAdresseService{
     }
 
     @Override
-    public List<Adresse> read(String loc) throws Exception {
-        return adresseRepository.findByLocalite(loc);
+    public List<Adresse> read(String localite) throws Exception {
+        return adresseRepository.findByLocalite(localite);
     }
     
 }

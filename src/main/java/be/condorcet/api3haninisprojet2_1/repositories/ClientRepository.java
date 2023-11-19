@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer>{
     
-    List<Client> findByNom(String nom);
+    List<Client> findByNomLike(String nom);
 
     Client findByNomAndPrenomAndTel(String nom, String prenom, String tel);
    // List<Client> findByTaxi(Taxi taxi);

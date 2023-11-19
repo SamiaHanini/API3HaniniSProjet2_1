@@ -12,12 +12,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer>{
     
-     List<Location> findLocationsByTaxi(Taxi taxi);
+     List<Location> findLocationByTaxi(Taxi taxi);
 
-    List<Location> findLocationsByDateLocBetweenAndTaxi(LocalDate d1, LocalDate d2, Taxi t);
-    List<Location> findLocationsByClient(Client cl);
+    List<Location> findLocationByDateLocBetweenAndTaxi(LocalDate d1, LocalDate d2, Taxi t);
+    List<Location> findLocationByClient(Client cl);
 }
