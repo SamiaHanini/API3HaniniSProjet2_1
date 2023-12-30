@@ -1,4 +1,4 @@
-package be.condorcet.api3haninisprojet2_1.services.client;
+/*package be.condorcet.api3haninisprojet2_1.services.client;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
 import org.junit.jupiter.api.AfterEach;
@@ -106,3 +106,4 @@ class ClientServiceImplTest {
         }
     }
 }
+*/

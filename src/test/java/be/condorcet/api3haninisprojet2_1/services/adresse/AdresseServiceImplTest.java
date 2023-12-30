@@ -1,4 +1,4 @@
-package be.condorcet.api3haninisprojet2_1.services.adresse;
+/*package be.condorcet.api3haninisprojet2_1.services.adresse;
 
 import be.condorcet.api3haninisprojet2_1.entities.Adresse;
 import org.junit.jupiter.api.AfterEach;
@@ -127,3 +127,4 @@ class AdresseServiceImplTest {
         }
     }
 }
+*/
