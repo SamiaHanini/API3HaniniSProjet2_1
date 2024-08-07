@@ -13,50 +13,60 @@ import lombok.*;
 @RequiredArgsConstructor
 @ToString
 @Entity
-@Table(name = "APILOCATION", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
+@Table(name = "LOCATION", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
 public class Location {
 
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_generator")
-        @SequenceGenerator(name = "location_generator", sequenceName = "APILOCATION_ID_SEQ", allocationSize = 1)
-        @Column(name = "ID")
-        private Integer id;
+        @SequenceGenerator(name = "location_generator", sequenceName = "LOCATION_ID_SEQ", allocationSize = 1)
+        @Column(name = "IDLOCATION")
+        private Integer idlocation;
+
         @NonNull
         @Column(name = "DATELOC")
-        private LocalDate dateLoc;
+        private LocalDate dateloc;
+
         @NonNull
         @Column(name = "KMTOTAL")
         private Integer kmtotal;
+
         @NonNull
         @Column(name = "ACOMPTE")
         private Double acompte;
+
         @NonNull
         @Column(name = "TOTAL")
-        @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM APITAXI t WHERE t.id = ID_3)")
+        //a verifier
+        @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM TAXI t WHERE t.IDTAXI = TAXIFK)")
         private Double total;
-        @NonNull
-        @ToString.Exclude
-        @ManyToOne @JoinColumn(name = "ID_1")
-        private Adresse adresseDebut;
-        @NonNull
-        @ToString.Exclude
-        @ManyToOne @JoinColumn(name = "ID_2")
-        private Adresse adresseFin;
-        @NonNull
-        @ToString.Exclude
-        @ManyToOne @JoinColumn(name = "ID_3")
-        private Taxi taxi;
-        @NonNull
-        @ToString.Exclude
-        @ManyToOne @JoinColumn(name = "ID_4")
-        private Client client;
 
-        public Double getTotal() {
-                return total;
-        }
+        @NonNull
+        @ManyToOne 
+        @JoinColumn(name = "TAXIFK")
+        private Taxi taxifk;
 
-        public void setTotal(Double total) {
-                this.total = total;
-        }
+        @NonNull
+        @ManyToOne 
+        @JoinColumn(name = "CLIENTFK")
+        private Client clientfk;
+
+        @NonNull
+        @ManyToOne 
+        @JoinColumn(name = "ADRESSEDEPART")
+        private Adresse adressedepart;
+
+        @NonNull
+        @ManyToOne 
+        @JoinColumn(name = "ADRESSEFIN")
+        private Adresse adressefin;
+
+
+        // public Double getTotal() {
+        //         return total;
+        // }
+
+        // public void setTotal(Double total) {
+        //         this.total = total;
+        // }
 
 }

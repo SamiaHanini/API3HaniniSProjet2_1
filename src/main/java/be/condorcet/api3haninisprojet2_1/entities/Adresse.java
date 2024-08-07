@@ -12,36 +12,40 @@ import java.util.List;
 @RequiredArgsConstructor
 @ToString
 @Entity
-@Table(name = "APIADRESSE", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
+@Table(name = "ADRESSE", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
 public class Adresse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adresse_generator")
-    @SequenceGenerator(name = "adresse_generator", sequenceName = "APIADRESSE_ID_SEQ", allocationSize = 1)
-    @Column(name = "ID")
-    private Integer id;
+    @SequenceGenerator(name = "adresse_generator", sequenceName = "ADRESSE_ID_SEQ", allocationSize = 1)
+    @Column(name = "IDADRESSE")
+    private Integer idadresse;
+
     @NonNull
     @Column(name = "CP")
     private Integer cp;
+
     @NonNull
     @Column(name = "LOCALITE")
     private String localite;
+
     @NonNull
     @Column(name = "RUE")
     private String rue;
+
     @NonNull
     @Column(name = "NUM")
     private String num;
+
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "adresseDebut", fetch = FetchType.LAZY)
-    private List<Location> llocationsDebut;
+    @OneToMany(mappedBy = "ADRESSEDEPART")
+    private List<Location> llocationsDepart;
+
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "adresseFin", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ADRESSEFIN")
     private List<Location> llocationsFin;
-
-
 
 
 }
