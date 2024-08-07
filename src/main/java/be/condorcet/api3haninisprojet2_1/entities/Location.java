@@ -61,12 +61,12 @@ public class Location {
         private Adresse adressefin;
 
 
-        // public Double getTotal() {
-        //         return total;
-        // }
+        public Double getTotal() {
+                return total;
+        }
 
-        // public void setTotal(Double total) {
-        //         this.total = total;
-        // }
+        public void setTotal(Double total) {
+                this.total = total;
+        }
 
 }

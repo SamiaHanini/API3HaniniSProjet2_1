@@ -17,6 +17,7 @@ public interface TaxiRepository extends JpaRepository<Taxi, Integer>{
     
     List<Taxi> findByCarburantLike(String carburant);
 
+    //ts clients sans doublon pr taxi
     @Query(value = """
             SELECT DISTINCT c
             FROM Client c
@@ -28,12 +29,15 @@ public interface TaxiRepository extends JpaRepository<Taxi, Integer>{
     /*@Query(value = "SELECT l FROM Location l WHERE l.taxi.id = :taxiId")
     List<Location> locationsForTaxi(@Param("taxiId") Integer taxiId);*/
 
+    //total km pr taxi
     @Query(value = "SELECT SUM(l.kmtotal) FROM Location l WHERE l.taxi.id = :taxiId")
     Double totalKilometersForTaxi(@Param("taxiId") Integer taxiId);
 
+    //total cost pr taxi
     @Query(value = "SELECT SUM(l.kmtotal * t.prixKm) FROM Location l JOIN l.taxi t WHERE t.id = :taxiId")
     Double totalCostForTaxi(@Param("taxiId") Integer taxiId);
 
+    //manque loc entre deux dates
 
 
 

@@ -32,14 +32,15 @@ public class LocationServiceImpl implements InterfLocationService{
 
     @Override
     public Location update(Location location) throws Exception {
-        read(location.getId());
+        locationRepository.
+        read(location.getIdlocation());
         locationRepository.save(location);
         return location;
     }
 
     @Override
     public void delete(Location location) throws Exception {
-        locationRepository.deleteById(location.getId());
+        locationRepository.deleteById(location.getIdlocation());
     }
 
     @Override
