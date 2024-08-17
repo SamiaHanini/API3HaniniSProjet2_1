@@ -4,7 +4,7 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 
 ## Fonctionnalités
 
-### Classe Taxi :
+### <span style="color: violet;">Classe Taxi</span> :
 - **Affichage de tous les taxis** : Liste tous les taxis enregistrés dans le système.
 - **Recherche par immatriculation** : Permet de trouver un taxi spécifique en utilisant son numéro d'immatriculation.
 - **Modification de taxi** : Met à jour les informations d'un taxi existant.
@@ -15,7 +15,7 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Affichage des clients pour un taxi** : Affiche tous les clients qui ont loué un taxi spécifique.
 - **Affichage des locations pour un taxi** : Liste toutes les locations effectuées par un taxi spécifique.
 
-### Classe Client :
+### <span style="color: blue;">Classe Client</span> :
 - **Affichage de tous les clients** : Liste tous les clients enregistrés dans le système.
 - **Recherche par nom, prénom et numéro de téléphone** : Permet de trouver un client en utilisant son nom, prénom ou numéro de téléphone.
 - **Modification de client** : Met à jour les informations d'un client existant.
@@ -23,14 +23,14 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Ajout d'un nouveau client** : Ajoute un nouveau client au système.
 - **Affichage des locations pour un client** : Liste toutes les locations effectuées par un client spécifique.
 
-### Classe Adresse :
+### <span style="color: green;">Classe Adresse</span> :
 - **Affichage de toutes les adresses** : Liste toutes les adresses enregistrées dans le système.
 - **Recherche par localité** : Permet de trouver une adresse en utilisant le nom de la localité.
 - **Modification d'adresse** : Met à jour les informations d'une adresse existante.
 - **Suppression d'adresse** : Supprime une adresse du système.
 - **Ajout d'une nouvelle adresse** : Ajoute une nouvelle adresse au système.
 
-### Classe Location :
+### <span style="color: red;">Classe Location</span> :
 - **Affichage de toutes les locations** : Liste toutes les locations enregistrées dans le système.
 - **Recherche par date donnée** : Permet de trouver des locations en utilisant une date spécifique.
 - **Recherche par taxi donné et période donnée** : Permet de trouver des locations en fonction d'un taxi spécifique et d'une période donnée.
@@ -38,6 +38,3 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Suppression de location** : Supprime une location du système.
 - **Ajout d'une nouvelle location** : Ajoute une nouvelle location au système.
 - **Calcul du coût total par location** : Calcule le montant total d'une location spécifique.
-
----
-
