@@ -52,11 +52,11 @@ public class LocationServiceImpl implements InterfLocationService{
 
         double newTotal = existingLocation.getKmtotal() * currentTaxi.getPrixkm();
 
-        existingLocation.setTotal(newTotal);
+        location.setTotal(newTotal);
 
-        locationRepository.save(existingLocation);
+        locationRepository.save(location);
 
-        return existingLocation;
+        return location;
     }
 
 

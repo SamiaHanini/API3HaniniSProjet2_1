@@ -88,7 +88,7 @@ public class RestLocation {
         return new ResponseEntity<>(locationServiceImpl.all(), HttpStatus.OK);
     }
 
-    //-------------------Mettre à jour une commande d'un n° donné--------------------------------------------------------
+    //-------------------Mettre à jour une location--------------------------------------------------------
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Location> majLocationTaxi(@PathVariable(value = "id") int id, @RequestBody Location newloc) throws Exception {
         System.out.println("maj de la location n° " + id);
