@@ -15,7 +15,7 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Affichage des clients pour un taxi** : Affiche tous les clients qui ont loué un taxi spécifique.
 - **Affichage des locations pour un taxi** : Liste toutes les locations effectuées par un taxi spécifique.
 
-  ### 🔴 Classe Location :
+### 🔴 Classe Location :
 - **Affichage de toutes les locations** : Liste toutes les locations enregistrées dans le système.
 - **Recherche par date donnée** : Permet de trouver des locations en utilisant une date spécifique.
 - **Recherche par taxi donné et période donnée** : Permet de trouver des locations en fonction d'un taxi spécifique et d'une période donnée.
