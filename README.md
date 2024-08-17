@@ -15,6 +15,15 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Affichage des clients pour un taxi** : Affiche tous les clients qui ont loué un taxi spécifique.
 - **Affichage des locations pour un taxi** : Liste toutes les locations effectuées par un taxi spécifique.
 
+### 🔴 Classe Location :
+- **Affichage de toutes les locations** : Liste toutes les locations enregistrées dans le système.
+- **Recherche par date donnée** : Permet de trouver des locations en utilisant une date spécifique.
+- **Recherche par taxi donné et période donnée** : Permet de trouver des locations en fonction d'un taxi spécifique et d'une période donnée.
+- **Modification de location** : Met à jour les informations d'une location existante.
+- **Suppression de location** : Supprime une location du système.
+- **Ajout d'une nouvelle location** : Ajoute une nouvelle location au système.
+- **Calcul du coût total par location** : Calcule le montant total d'une location spécifique.
+
 ### 🔵 Classe Client :
 - **Affichage de tous les clients** : Liste tous les clients enregistrés dans le système.
 - **Recherche par nom, prénom et numéro de téléphone** : Permet de trouver un client en utilisant son nom, prénom ou numéro de téléphone.
@@ -30,11 +39,4 @@ Ce projet a été développé dans le cadre du cours API3. Il s'agit d'une appli
 - **Suppression d'adresse** : Supprime une adresse du système.
 - **Ajout d'une nouvelle adresse** : Ajoute une nouvelle adresse au système.
 
-### 🔴 Classe Location :
-- **Affichage de toutes les locations** : Liste toutes les locations enregistrées dans le système.
-- **Recherche par date donnée** : Permet de trouver des locations en utilisant une date spécifique.
-- **Recherche par taxi donné et période donnée** : Permet de trouver des locations en fonction d'un taxi spécifique et d'une période donnée.
-- **Modification de location** : Met à jour les informations d'une location existante.
-- **Suppression de location** : Supprime une location du système.
-- **Ajout d'une nouvelle location** : Ajoute une nouvelle location au système.
-- **Calcul du coût total par location** : Calcule le montant total d'une location spécifique.
+
