@@ -1,219 +1,141 @@
-// package be.condorcet.api3haninisprojet2_1.services.location;
+package be.condorcet.api3haninisprojet2_1.services.location;
 
-// import be.condorcet.api3haninisprojet2_1.entities.Location;
-// import be.condorcet.api3haninisprojet2_1.entities.Adresse;
-// import be.condorcet.api3haninisprojet2_1.entities.Taxi;
-// import be.condorcet.api3haninisprojet2_1.services.adresse.AdresseServiceImpl;
-// import be.condorcet.api3haninisprojet2_1.services.client.ClientServiceImpl;
-// import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
-// import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Location;
+import be.condorcet.api3haninisprojet2_1.entities.Adresse;
+import be.condorcet.api3haninisprojet2_1.entities.Taxi;
+import be.condorcet.api3haninisprojet2_1.services.adresse.AdresseServiceImpl;
+import be.condorcet.api3haninisprojet2_1.services.client.ClientServiceImpl;
+import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
+import be.condorcet.api3haninisprojet2_1.entities.Client;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// import org.junit.jupiter.api.AfterEach;
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertNotEquals;
-// import static org.junit.jupiter.api.Assertions.fail;
-
-// import java.time.LocalDate;
-// import java.util.List;
-
-// @SpringBootTest
-// class LocationServiceImplTest {
-
-//     @Autowired
-//     private LocationServiceImpl LocationService;
-
-//     @Autowired
-//     private TaxiServiceImpl TaxiService;
-
-//     @Autowired
-//     private AdresseServiceImpl AdresseService;
-
-    
-//     @Autowired
-//     private ClientServiceImpl ClientService;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-//     private Location location;
-//     private Client client;
-//     private Taxi taxi;
-//     private Adresse adDebut;
-//     private Adresse adFin;
-//     //private Double total;
+@SpringBootTest
+class LocationServiceImplTest {
 
-//     @BeforeEach
-//     void setUp() {
-//         try {
+    @Autowired
+    private LocationServiceImpl locationService;
 
-//             adDebut = new Adresse(7000,"Mons", "Rue des arbres", "1A");
-//             AdresseService.create(adDebut);
+    @Autowired
+    private TaxiServiceImpl taxiService;
 
-//             adFin = new Adresse(7300,"Saint-Ghislain", "Rue des rochers", "34");
-//             AdresseService.create(adFin);
+    @Autowired
+    private AdresseServiceImpl adresseService;
 
-//             taxi = new Taxi("T-000-EST", "ESSENCE", 10.0);
-//             TaxiService.create(taxi);
+    @Autowired
+    private ClientServiceImpl clientService;
 
-//             client = new Client("clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
-//             ClientService.create(client);
-
-//             location = new Location(LocalDate.now(),30,  25.0, null, adDebut, adFin, taxi, client);
-//             LocationService.create(location);
-
-//             System.out.println("création de la location : " + location);
-//         } catch (Exception e) {
-//             System.out.println("erreur de création de la location : " + location + " erreur : " + e);
-//         }
-//     }
-
-//     @AfterEach
-//     void tearDown() {
-//         try {
-//             try {
-//                 LocationService.delete(location);
-//             } catch (Exception e) {
-//                 System.out.println("Erreur lors de la suppression de la location : " + e);
-//             }
-
-//             try {
-//                 ClientService.delete(client);
-//             } catch (Exception e) {
-//                 System.out.println("Erreur lors de la suppression du client : " + e);
-//             }
-//             try {
-//                 TaxiService.delete(taxi);
-//             } catch (Exception e) {
-//                 System.out.println("Erreur lors de la suppression du taxi : " + e);
-//             }
-
-//             try {
-//                 AdresseService.delete(adDebut);
-//             } catch (Exception e) {
-//                 System.out.println("Erreur lors de la suppression de l'adresse de départ : " + e);
-//             }
-//             try {
-//                 AdresseService.delete(adFin);
-//             } catch (Exception e) {
-//                 System.out.println("Erreur lors de la suppression de l'adresse de départ : " + e);
-//             }
-//             System.out.println("effacement de la location : " + location);
-//         } catch (Exception e) {
-//             System.out.println("erreur d'effacement de la location :" + location + " erreur : " + e);
-//         }
-//     }
-
-//     //@Test
-//     // void create() {
-//     //     assertNotEquals(0, location.getId(), "id Location non incrémenté");
-//     //     assertEquals(LocalDate.now(), location.getDateLoc(), "date Location non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
-//     //     assertNotEquals(300,location.getKmtotal(), "km total non enregistré");
-//     //     assertNotEquals(25,location.getAcompte(), "acompte non enregistré");
-//     //     assertNotEquals(0,location.getTotal(), "total non enregistré");
-//     //     assertNotEquals(adDebut.getId(),location.getAdresseDebut().getId(), "location adresse départ non enregistrée");
-//     //     assertNotEquals(adFin.getId(),location.getAdresseFin().getId(), "location adresse arrivé non enregistrée");
-//     //     assertNotEquals(taxi.getId(),location.getTaxi().getId(), "location taxi non enregistrée");
-//     //     assertNotEquals(client.getId(),location.getClient().getId(), "location client non enregistrée");
-
-//     // }
-
-//     // @Test
-//     // void create() {
-//     //     assertNotEquals(0, location.getId(), "id location non incrémenté");
-//     //     assertEquals(LocalDate.now(), location.getDateLoc(), "date prescription non enregistré : " + location.getDateLoc() + " au lieu de " + LocalDate.now());
-//     // }
-
-//     @Test
-//     void create() {
-//         assertNotEquals(0, location.getId(), "location id not incremented");
-//         assertNotEquals(null,location.getDateLoc(), "location date not set");
-//         assertNotEquals(0,location.getKmtotal(), "location km not set");
-//         assertNotEquals(0,location.getTotal(), "location total not set");
-//         assertNotEquals(null,location.getTaxi(), "location taxi not set");
-//         assertNotEquals(null,location.getClient(), "location client not set");
-//         assertNotEquals(null,location.getAdresseDebut(), "location adressedep not set");
-//         assertNotEquals(null,location.getAdresseFin(), "location adressearr not set");
-//     }
-
-//      @Test
-//     void read() {
-//         try {
-//             int idLoc = location.getId();
-//             Location location2 = LocationService.read(idLoc);
-//             assertEquals(LocalDate.now(), location2.getDateLoc(), "Date de la location différente " + location2.getDateLoc() + " au lieu de " + LocalDate.now());
-
-//         } catch (Exception e) {
-//             fail("recherche infructueuse " + e);
-//         }
-//     }
+    private Location location;
+    private Client client;
+    private Taxi taxi;
+    private Adresse adDebut;
+    private Adresse adFin;
 
 
+    @BeforeEach
+    void setUp() throws Exception {
+        adDebut = new Adresse(7000, "Mons", "Rue des arbres", "1A");
+        adFin = new Adresse(7300, "Saint-Ghislain", "Rue des rochers", "34");
+        adresseService.create(adDebut);
+        adresseService.create(adFin);
 
-//     @Test
-//     void update() {
-//         try{
-//             location.setKmtotal(20);
-//             location = LocationService.update(location);
-//             location = LocationService.read(location.getId());
-//             assertEquals(20,location.getKmtotal(), "pas de différence dans le km total");
-//         }catch (Exception e){
-//             fail("erreur de mise à jour : " + e);
-//         }
-//     }
+        taxi = new Taxi("T-000-EST", "ESSENCE", 10.0);
+        taxiService.create(taxi);
 
-//     @Test
-//     void delete() {
-//         try{
-//             LocationService.delete(location);
-//             Assertions.assertThrows(Exception.class, () -> {
-//                 LocationService.read(location.getId());
-//             },"error : location not deleted");
-//         }catch (Exception e){
-//             fail("delete failed : " + e);
-//         }
-//     }
+        client = new Client("clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
+        clientService.create(client);
+
+        Date date=Date.valueOf(LocalDate.now().toString());
+        location = new Location(date, 30, 25.0, taxi, client, adDebut, adFin);
+        locationService.create(location);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        locationService.delete(location);
+        clientService.delete(location.getClientfk());
+        taxiService.delete(location.getTaxifk());
+        adresseService.delete(location.getAdressedepart());
+        adresseService.delete(location.getAdressefin());
+    }
+
+    @Test
+    void create() {
+        Date date=Date.valueOf(LocalDate.now().toString());
+        assertNotEquals(0, location.getIdlocation(), "Location ID not incremented");
+        assertEquals(date, location.getDateloc(), "Location date not set correctly");
+        assertEquals(location.getTaxifk().getIdtaxi(), taxi.getIdtaxi(), "Taxi not set correctly");
+        assertEquals(location.getClientfk().getIdclient(), client.getIdclient(), "Client not set correctly");
+    }
+
+    @Test
+    void read() throws Exception {
+        Location fetchedLocation = locationService.read(location.getIdlocation());
+        assertEquals(location.getIdlocation(), fetchedLocation.getIdlocation(), "Fetched location ID does not match");
+    }
+
+    @Test
+    void update() throws Exception {
+        location.setKmtotal(50);
+        Location updatedLocation = locationService.update(location);
+
+        assertEquals(50, updatedLocation.getKmtotal(), "Km total not updated correctly");
+    }
+
+    @Test
+    void delete() throws Exception {
+        locationService.delete(location);
+
+        assertThrows(Exception.class, () -> locationService.read(location.getIdlocation()), "Location not deleted");
+    }
+
+    @Test
+    void all() throws Exception {
+        List<Location> locations = locationService.all();
+        assertNotEquals(0, locations.size(), "No locations found in the database");
+    }
+
+    @Test
+    void readByDatesAndTaxi() throws Exception {
+
+        Date start = Date.valueOf(location.getDateloc().toLocalDate().minusDays(10));
+        Date end = Date.valueOf(location.getDateloc().toLocalDate().plusDays(10));
+
+        List<Location> locations = locationService.getLocationsByTaxiIdAndDateRange(taxi.getIdtaxi(), start, end);
+        assertNotEquals(0, locations.size(), "No locations found between the given dates for the specified taxi");
+    }
+
+    @Test
+    void readByDate() throws Exception {
+
+        Date datel = Date.valueOf(location.getDateloc().toLocalDate());
+        List<Location> locations = locationService.readByDate(datel);
+        assertNotEquals(0, locations.size(), "No locations found between the given date");
+    }
+
+    @Test
+    void readByTaxi() throws Exception {
+
+        List<Location> locations = locationService.read(taxi);
+        assertNotEquals(0, locations.size(), "No locations found for the given taxi");
+    }
+
+    @Test
+    void readByClient() throws Exception {
+
+        List<Location> locations = locationService.read(client);
+        assertNotEquals(0, locations.size(), "No locations found for the given client");
+    }
 
 
-//     @Test
-//     void all() {
-//         try {
-//             List<Location> locations = LocationService.all();
-
-//             assertNotEquals(0, locations.size(), "la liste ne contient aucun élément");
-//         } catch (Exception e) {
-//             fail("erreur de recherche de toutes les locations " + e);
-//         }
-//     }
-
-//     @Test
-//     void readByDates() {
-//         try {
-
-//             LocalDate start = LocalDate.of(2023, 1, 12);
-//             LocalDate end = LocalDate.of(2023, 2, 19);
-//             Taxi taxiLocs = TaxiService.read(2);
-//             List<Location> locations = LocationService.getLocationsByDatesAndTaxi(taxiLocs,start, end);
-
-//             assertNotEquals(0, locations.size(), "la liste ne contient aucun élément");
-//         } catch (Exception e) {
-//             fail("erreur de recherche de Locations par date " + e);
-//         }
-//     }
-
-//     @Test
-//     void getLocationsByTaxis() {
-//         try {
-//             Taxi taxiLocs = TaxiService.read(2);
-//             List<Location> locations = LocationService.getLocationsByTaxi(taxiLocs);
-//             assertNotEquals(0, locations.size(), "la liste ne contient aucun élément");
-//         } catch (Exception e) {
-//             fail("erreur de recherche des Locations du patient " + e);
-//         }
-//     }
-
-
-// }
+}

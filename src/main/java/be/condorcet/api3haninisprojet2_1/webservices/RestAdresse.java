@@ -1,6 +1,5 @@
 package be.condorcet.api3haninisprojet2_1.webservices;
 
-
 import be.condorcet.api3haninisprojet2_1.entities.Adresse;
 import be.condorcet.api3haninisprojet2_1.services.adresse.InterfAdresseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class RestAdresse {
     }
 
     //-------------------Retrouver les adresses portant une localité donnée--------------------------------------------------------
-    @RequestMapping(value = "/localite={localite}", method = RequestMethod.GET)
+    @RequestMapping(value = "/localite/{localite}", method = RequestMethod.GET)
     public ResponseEntity<List<Adresse>> listAdressesLocalite(@PathVariable(value = "localite") String localite) throws Exception {
         System.out.println("recherche de la localite " + localite);
         List<Adresse> adresses;
@@ -36,7 +35,7 @@ public class RestAdresse {
     }
 
     //-------------------Créer un adresse--------------------------------------------------------
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<Adresse> createAdresse(@RequestBody Adresse adresse) throws Exception {
         System.out.println("Création de l'adresse " + adresse);
         AdresseServiceImpl.create(adresse);
@@ -47,7 +46,7 @@ public class RestAdresse {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Adresse> majAdresse(@PathVariable(value = "id") int id, @RequestBody Adresse nouvAdresse) throws Exception {
         System.out.println("maj de adresse id =  " + id);
-        nouvAdresse.setId(id);
+        nouvAdresse.setIdadresse(id);
         Adresse adresse = AdresseServiceImpl.update(nouvAdresse);
         return new ResponseEntity<>(adresse, HttpStatus.OK);
     }

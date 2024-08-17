@@ -19,6 +19,7 @@ public class AdresseServiceImpl implements InterfAdresseService{
 
     @Override
     public Adresse create(Adresse adresse) throws Exception {
+        adresse.setLocalite(adresse.getLocalite().toLowerCase());
         adresseRepository.save(adresse);
         return adresse;
     }
@@ -31,14 +32,15 @@ public class AdresseServiceImpl implements InterfAdresseService{
 
     @Override
     public Adresse update(Adresse adresse) throws Exception {
-        read(adresse.getId());
+
+        adresse.setLocalite(adresse.getLocalite().toLowerCase());
         adresseRepository.save(adresse);
         return adresse;
     }
 
     @Override
     public void delete(Adresse adresse) throws Exception {
-        adresseRepository.deleteById(adresse.getId());
+        adresseRepository.deleteById(adresse.getIdadresse());
     }
 
     @Override
@@ -48,7 +50,8 @@ public class AdresseServiceImpl implements InterfAdresseService{
 
     @Override
     public List<Adresse> read(String localite) throws Exception {
-        return adresseRepository.findByLocalite(localite);
+
+        return adresseRepository.findByLocalite(localite.toLowerCase());
     }
     
 }

@@ -38,8 +38,8 @@ public class Client {
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "CLIENTFK")
-    private List<Location> llocations;
+    @OneToMany(mappedBy = "clientfk")
+    private Set<Location> locations;
 
 }
 

@@ -1,140 +1,190 @@
-/*package be.condorcet.api3haninisprojet2_1.services.taxi;
+package be.condorcet.api3haninisprojet2_1.services.taxi;
 
+import be.condorcet.api3haninisprojet2_1.entities.Adresse;
 import be.condorcet.api3haninisprojet2_1.entities.Client;
+import be.condorcet.api3haninisprojet2_1.entities.Location;
 import be.condorcet.api3haninisprojet2_1.entities.Taxi;
-import be.condorcet.api3haninisprojet2_1.services.taxi.TaxiServiceImpl;
+import be.condorcet.api3haninisprojet2_1.services.adresse.AdresseServiceImpl;
+import be.condorcet.api3haninisprojet2_1.services.client.ClientServiceImpl;
+import be.condorcet.api3haninisprojet2_1.services.location.LocationServiceImpl;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import java.time.LocalDate;
 import java.util.List;
+import java.sql.Date;
+
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TaxiServiceImplTest {
 
     @Autowired
-    private InterfTaxiService taxiServiceImpl;
+    private LocationServiceImpl locationService;
 
+    @Autowired
+    private TaxiServiceImpl taxiServiceImpl;
+
+    @Autowired
+    private AdresseServiceImpl adresseService;
+
+    @Autowired
+    private ClientServiceImpl clientService;
+
+    private Location location;
+    private Client client;
     private Taxi taxi;
+    private Adresse adDebut;
+    private Adresse adFin;
 
     @BeforeEach
-    void setUp() {
-        try {
-            taxi = new Taxi("T-000-EST", "Essence", 1.5);
-            taxiServiceImpl.create(taxi);
-            taxi = taxiServiceImpl.read(taxi.getId());
-            System.out.println("Création du taxi réussie : " + taxi);
+    void setUp() throws Exception {
+        taxi = new Taxi("TEST-A12", "Essence", 10.0);
+        taxiServiceImpl.create(taxi);
 
-        } catch (Exception e) {
-            System.out.println("Échec de la création du taxi : " + taxi + ". Erreur : " + e);
-        }
+        adDebut = new Adresse(7000, "Mons", "Rue des arbres", "1A");
+        adresseService.create(adDebut);
+
+        adFin = new Adresse(7300, "Saint-Ghislain", "Rue des rochers", "34");
+        adresseService.create(adFin);
+
+        client = new Client("clienttest@gmail.com", "TestNom", "TestPrenom", "048476378");
+        clientService.create(client);
+
+        Date date=Date.valueOf(LocalDate.now().toString());
+        location = new Location(date, 30, 25.0, taxi, client, adDebut, adFin);
+        locationService.create(location);
     }
 
     @AfterEach
-    void tearDown() {
-        try {
-            taxiServiceImpl.delete(taxi);
-            System.out.println("Suppression du taxi réussie : " + taxi);
+    void tearDown() throws Exception {
+        locationService.delete(location);
+        clientService.delete(client);
+        taxiServiceImpl.delete(taxi);
+        adresseService.delete(adDebut);
+        adresseService.delete(adFin);
+    }
 
-        } catch (Exception e) {
-            System.out.println("Erreur d'effacement du taxi : " + taxi + ". Erreur : " + e);
-        }
+    @Test
+    void create() throws Exception {
+        Taxi newTaxi = new Taxi("CREATE-TEST", "Diesel", 15.0);
+        taxiServiceImpl.create(newTaxi);
+
+        Taxi retrievedTaxi = taxiServiceImpl.getTaxiByImmatriculation("CREATE-TEST");
+        assertNotNull(retrievedTaxi, "Taxi should be created and retrieved.");
+        assertEquals("CREATE-TEST", retrievedTaxi.getImmatriculation(), "Immatriculation should match.");
+
+        taxiServiceImpl.delete(newTaxi);
+    }
+
+    @Test
+    void delete() throws Exception {
+        Taxi newTaxi = new Taxi("DELETE-TEST", "Electric", 20.0);
+        taxiServiceImpl.create(newTaxi);
+
+        int taxiId = newTaxi.getIdtaxi();
+        taxiServiceImpl.delete(newTaxi);
+
+        assertThrows(Exception.class, () -> taxiServiceImpl.read(taxiId), "Taxi should be deleted.");
+    }
+
+    @Test
+    void read() throws Exception {
+        Taxi retrievedTaxi = taxiServiceImpl.read(taxi.getIdtaxi());
+        assertNotNull(retrievedTaxi, "Taxi should be retrievable by ID.");
+        assertEquals(taxi.getIdtaxi(), retrievedTaxi.getIdtaxi(), "Taxi ID should match.");
+    }
+
+    @Test
+    void update() throws Exception {
+        taxi.setImmatriculation("T-002-EST");
+        taxi.setCarburant("Diesel");
+        taxi.setPrixkm(2.0);
+        Taxi updatedTaxi = taxiServiceImpl.update(taxi);
+
+        assertEquals("T-002-EST", updatedTaxi.getImmatriculation(), "Immatriculation should be updated.");
+        assertEquals("Diesel", updatedTaxi.getCarburant(), "Carburant should be updated.");
+        assertEquals(2.0, updatedTaxi.getPrixkm(), "Prix/km should be updated.");
+    }
+
+    @Test
+    void all() throws Exception {
+        List<Taxi> taxis = taxiServiceImpl.all();
+        assertNotNull(taxis, "List of taxis should not be null.");
+        assertFalse(taxis.isEmpty(), "List of taxis should not be empty.");
     }
 
 
     @Test
-    void create() {
-        assertNotEquals(0, taxi.getId(), "Identifiant du taxi non incrémenté");
-        assertEquals("T-000-EST", taxi.getImmatriculation(), "Immatriculation non enregistrée : " + taxi.getImmatriculation() + " au lieu de T-000-EST");
-        assertEquals("Essence", taxi.getCarburant(), "Carburant non enregistré : " + taxi.getCarburant() + " au lieu de Essence");
-        assertEquals(1.5, taxi.getPrixKm(), "Prix au km non enregistré : " + taxi.getPrixKm() + " au lieu de 1.5");
+    void clientsForTaxi() throws Exception {
+        List<Client> clients = taxiServiceImpl.clientsForTaxi(taxi.getIdtaxi());
+        assertNotNull(clients, "List of clients should not be null.");
+        assertFalse(clients.isEmpty(), "List of clients for the taxi should not be empty.");
     }
 
     @Test
-    void read() {
-        try {
-            int idTaxi = taxi.getId();
-            Taxi taxi2 = taxiServiceImpl.read(idTaxi);
-
-            assertEquals(taxi.getImmatriculation(), taxi2.getImmatriculation(), "Immatriculation différente " + taxi.getImmatriculation() + " au lieu de " + taxi2.getImmatriculation());
-            assertEquals(taxi.getCarburant(), taxi2.getCarburant(), "Carburant différent " + taxi.getCarburant() + " au lieu de " + taxi2.getCarburant());
-            assertEquals(taxi.getPrixKm(), taxi2.getPrixKm(), "Prix au km différent " + taxi.getPrixKm() + " au lieu de " + taxi2.getPrixKm());
-        } catch (Exception e) {
-            System.out.println("Erreur de création du taxi : " + taxi + " erreur : " + e);
-        }
+    void readByImmatriculation() throws Exception {
+        Taxi retrievedTaxi = taxiServiceImpl.getTaxiByImmatriculation(taxi.getImmatriculation());
+        assertNotNull(retrievedTaxi, "Taxi should be retrievable by Immmatriculation.");
+        assertEquals(taxi.getImmatriculation(), retrievedTaxi.getImmatriculation(), "Taxi immatriculation should match.");
     }
 
     @Test
-    void update() {
-        try {
-            taxi.setImmatriculation("T-002-EST");
-            taxi.setCarburant("Diesel");
-            taxi.setPrixKm(2.0);
-            taxi = taxiServiceImpl.update(taxi);
-            assertEquals("T-002-EST", taxi.getImmatriculation(), "Immatriculation différente de \"T-002-EST\"");
-            assertEquals("Diesel", taxi.getCarburant(), "Carburant différent de Diesel");
-            assertEquals(2.0, taxi.getPrixKm(), "Prix au km différent de 2.0");
-        } catch (Exception e) {
-            System.out.println("Erreur de mise à jour du taxi : " + taxi + " erreur : " + e);
-        }
+    void locationsForTaxi() throws Exception {
+        List<Location> locs = taxiServiceImpl.locationsForTaxi(taxi.getIdtaxi());
+        assertNotNull(locs, "List of locations should not be null.");
+        assertFalse(locs.isEmpty(), "List of locations for the taxi should not be empty.");
     }
 
     @Test
-    void delete() {
-        try {
-            taxiServiceImpl.delete(taxi);
-            Assertions.assertThrows(Exception.class, () -> {
-                taxiServiceImpl.read(taxi.getId());
-            }, "Record non effacé");
-        } catch (Exception e) {
-            System.out.println("Erreur d'effacement du taxi : " + taxi + " erreur : " + e);
-        }
+    void totKmTaxi() throws Exception {
+        Location location1 = new Location(Date.valueOf(LocalDate.now().minusDays(1)), 10, 15.0, taxi, client, adDebut, adFin);
+        Location location2 = new Location(Date.valueOf(LocalDate.now().minusDays(2)), 20, 25.0, taxi, client, adDebut, adFin);
+
+        locationService.create(location1);
+        locationService.create(location2);
+
+        double expectedTotalKm = location.getKmtotal() + location1.getKmtotal() + location2.getKmtotal();
+
+        Double retrievedTotalKm = taxiServiceImpl.totalKilometersForTaxi(taxi.getIdtaxi());
+
+        assertNotNull(retrievedTotalKm, "Total kilometers should not be null.");
+        assertEquals(expectedTotalKm, retrievedTotalKm, "Total kilometers should match the expected value.");
+
+        locationService.delete(location1);
+        locationService.delete(location2);
     }
 
     @Test
-    void all() {
-        try {
-            List<Taxi> taxis = taxiServiceImpl.all();
-            assertNotEquals(0, taxis.size(), "Nombre de taxis non conforme");
-        } catch (Exception e) {
-            System.out.println("Erreur de recherche de tous les taxis : " + e);
-        }
+    void totalCostForTaxi() throws Exception {
+        Location location1 = new Location(Date.valueOf(LocalDate.now().minusDays(1)), 10, 100.0, taxi, client, adDebut, adFin);
+        Location location2 = new Location(Date.valueOf(LocalDate.now().minusDays(2)), 20, 150.0, taxi, client, adDebut, adFin);
+
+        location1.setTotal(100.0);
+        location1.setAcompte(10.0);
+
+        location2.setTotal(150.0);
+        location2.setAcompte(20.0);
+
+        locationService.create(location1);
+        locationService.create(location2);
+
+        double expectedTotalCost = (location.getTotal() + location.getAcompte()) +
+                (location1.getTotal() + location1.getAcompte()) +
+                (location2.getTotal() + location2.getAcompte());
+
+        Double retrievedTotalCost = taxiServiceImpl.totalCostForTaxi(taxi.getIdtaxi());
+
+        assertNotNull(retrievedTotalCost, "Total cost should not be null.");
+        assertEquals(expectedTotalCost, retrievedTotalCost, "Total cost should match the expected value.");
+
+        locationService.delete(location1);
+        locationService.delete(location2);
     }
 
-    @Test
-    void rechCarburant() {
-        try {
-            List<Taxi> taxis = taxiServiceImpl.read("Essence");
-            boolean trouve = false;
-            for (Taxi taxi : taxis) {
-                if (taxi.getCarburant().startsWith("Essence")) {
-                    trouve = true;
-                } else {
-                    fail("Un record ne correspond pas, carburant = " + taxi.getCarburant());
-                }
-            }
-            assertNotEquals(0, taxis.size(), "Enregistrement non retrouvé dans la liste");
-        } catch (Exception e) {
-            fail("Recherche infructueuse : " + e);
-        }
-    }
 
-
-    @Test
-    void clientsForTaxi() {
-        try {
-            List<Client> clients = taxiServiceImpl.clientsForTaxi(1);
-            clients.forEach(System.out::println);
-
-            assertNotEquals(0, clients.size(), "la liste ne contient aucun élément");
-        } catch (Exception e) {
-            fail("erreur de recherche de taxis par client " + e);
-        }
-    }
-
-}*/
+}

@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface InterfTaxiService extends InterfaceService<Taxi>{
 
-     List<Taxi> read(String carburant) throws Exception;
+    Taxi getTaxiByImmatriculation(String immatriculation) throws Exception;
 
 
     List<Client> clientsForTaxi(Integer idTaxi) throws Exception;
 
-    /*List<Location> locationsForTaxi(Integer idTaxi) throws Exception;*/
+    List<Location> locationsForTaxi(Integer idTaxi) throws Exception;
 
     Double totalKilometersForTaxi(Integer idTaxi) throws Exception;
 

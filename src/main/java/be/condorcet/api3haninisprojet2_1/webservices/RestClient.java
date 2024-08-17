@@ -2,9 +2,7 @@ package be.condorcet.api3haninisprojet2_1.webservices;
 
 import be.condorcet.api3haninisprojet2_1.entities.Client;
 import be.condorcet.api3haninisprojet2_1.entities.Location;
-import be.condorcet.api3haninisprojet2_1.entities.Taxi;
 import be.condorcet.api3haninisprojet2_1.services.client.InterfClientService;
-import be.condorcet.api3haninisprojet2_1.services.taxi.InterfTaxiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,6 @@ public class RestClient {
     @Autowired
     private InterfClientService clientServiceImpl;
 
-    @Autowired
-    private InterfTaxiService taxiServiceImpl;
-
 
     //-------------------Retrouver le client correspondant à un id donné--------------------------------------------------------
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -31,14 +26,6 @@ public class RestClient {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    //-------------------Retrouver les clients portant un nom donné--------------------------------------------------------
-    @RequestMapping(value = "/nom={nom}", method = RequestMethod.GET)
-    public ResponseEntity<List<Client>> listClientsNom(@PathVariable(value = "nom") String nom) throws Exception {
-        System.out.println("recherche de " + nom);
-        List<Client> clients;
-        clients = clientServiceImpl.read(nom);
-        return new ResponseEntity<>(clients, HttpStatus.OK);
-    }
 
     //-------------------Retrouver le client correspondant à un triplet (nom,prénom,tel) unique donné--------------------------------------------------------
     @RequestMapping(value = "/{nom}/{prenom}/{tel}", method = RequestMethod.GET)
@@ -50,29 +37,25 @@ public class RestClient {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    //-------------------Retrouver le client correspondant à un taxidonné--------------------------------------------------------@RequestMapping(value = "/idtaxi={idtaxi}", method = RequestMethod.GET)
-    /*@RequestMapping(value = "/idtaxi={id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Client>> getClientTaxi(@PathVariable(value = "id") int id) throws Exception {
-        System.out.println("recherche des clients du taxi d'id " + id);
-        Taxi t = taxiServiceImpl.read(id);
-        List<Client> llc = clientServiceImpl.read(t);
-        return new ResponseEntity<>(llc, HttpStatus.OK);
-    }*/
-    
 
     //-------------------Créer un client--------------------------------------------------------
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<Client> createClient(@RequestBody Client client) throws Exception {
-        System.out.println("Création de Client " + client.getNom());
-        clientServiceImpl.create(client);
-        return new ResponseEntity<>(client, HttpStatus.OK);
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ResponseEntity<Client> createClient(@RequestBody Client client){
+        try {
+            clientServiceImpl.create(client);
+            return new ResponseEntity<>(client, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     //-------------------Mettre à jour un client d'un id donné--------------------------------------------------------
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Client> majClient(@PathVariable(value = "id") int id, @RequestBody Client nouvcli) throws Exception {
         System.out.println("maj de client id =  " + id);
-        nouvcli.setId(id);
+        nouvcli.setIdclient(id);
         Client clact = clientServiceImpl.update(nouvcli);
         return new ResponseEntity<>(clact, HttpStatus.OK);
     }
@@ -98,5 +81,12 @@ public class RestClient {
     public ResponseEntity<Void> handleIOException(Exception ex) {
         System.out.println("erreur : " + ex.getMessage());
         return ResponseEntity.notFound().header("error", ex.getMessage()).build();
+    }
+
+    //-------------------Locations pour un client--------------------------------------------------------
+    @RequestMapping(value="/identifiantloc/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> locationsForClient(@PathVariable(value = "id") int id) throws Exception {
+        List<Location> locations = clientServiceImpl.locationsForClient(id);
+        return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 }

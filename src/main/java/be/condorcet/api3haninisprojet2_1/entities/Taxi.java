@@ -14,7 +14,6 @@ import java.util.*;
 @ToString
 @Entity
 @Table(name = "TAXI", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
-
 public class Taxi {
 
     @Id
@@ -37,43 +36,8 @@ public class Taxi {
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "TAXIFK", fetch = FetchType.LAZY)
-    private List<Location> llocations;
+    @OneToMany(mappedBy = "taxifk")
+    private List<Location> locations;
 
-
-    // public List<Client> getClientsByTaxi() {
-    //      List<Client> uniqueClients = new ArrayList<>();
-    //      for (Location location : this.llocations) {
-    //          Client client = location.getClient();
-    //         if (!uniqueClients.contains(client)) {
-    //              uniqueClients.add(client);
-    //          }
-    //      }
-    //      return uniqueClients;
-    //  }
-
-
-    //  public int getKilometresParcourus() {
-    //      int totalKm = 0;
-    //      for (Location location : this.llocations) {
-    //          totalKm += location.getKmtotal();
-    //      }
-    //      return totalKm;
-    //  }
-
-    //  public float getMontantTotalDesLocations() {
-    //      float totalMontant = 0;
-    //      for (Location location : this.llocations) {
-    //          totalMontant += location.getTotal();
-    //      }
-    //      return totalMontant;
-    // }
-
-
-    //  public List<Location> getLocationEntreDeuxDates(LocalDate d1, LocalDate d2) {
-    //  return llocations.stream()
-    //         .filter(loc -> loc.getDateLoc().isAfter(d1.minusDays(1)) && loc.getDateLoc().isBefore(d2.plusDays(1)))
-    //          .collect(Collectors.toList());
-    //      }
 
 }

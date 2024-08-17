@@ -1,8 +1,6 @@
 package be.condorcet.api3haninisprojet2_1.entities;
 
-import java.time.LocalDate;
-
-import org.hibernate.annotations.Formula;
+import java.sql.Date;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +14,7 @@ import lombok.*;
 @Table(name = "LOCATION", schema = "ORA13", catalog = "OCRL.CONDORCET.BE")
 public class Location {
 
+        @Getter
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_generator")
         @SequenceGenerator(name = "location_generator", sequenceName = "LOCATION_ID_SEQ", allocationSize = 1)
@@ -24,7 +23,7 @@ public class Location {
 
         @NonNull
         @Column(name = "DATELOC")
-        private LocalDate dateloc;
+        private Date dateloc;
 
         @NonNull
         @Column(name = "KMTOTAL")
@@ -34,14 +33,12 @@ public class Location {
         @Column(name = "ACOMPTE")
         private Double acompte;
 
-        @NonNull
+        @Getter
         @Column(name = "TOTAL")
-        //a verifier
-        @Formula("(SELECT l.KMTOTAL * t.PRIXKM FROM TAXI t WHERE t.IDTAXI = TAXIFK)")
         private Double total;
 
         @NonNull
-        @ManyToOne 
+        @ManyToOne
         @JoinColumn(name = "TAXIFK")
         private Taxi taxifk;
 
@@ -59,14 +56,5 @@ public class Location {
         @ManyToOne 
         @JoinColumn(name = "ADRESSEFIN")
         private Adresse adressefin;
-
-
-        // public Double getTotal() {
-        //         return total;
-        // }
-
-        // public void setTotal(Double total) {
-        //         this.total = total;
-        // }
 
 }
